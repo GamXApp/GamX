@@ -1,0 +1,40 @@
+.navBar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 480px;
+    padding: 12px 0;
+    background-color: var(--color-surface);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.navItem{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+}
+
+.navItem:hover{
+    opacity: 1;
+}
+
+.navItemActive {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+}

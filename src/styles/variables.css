@@ -1,0 +1,8 @@
+:root {
+    --color-bg: #1a1a2e;
+    --color-surface: #16213e;
+    --color-primary: #39ff14;      /* verde neón del diseño */
+    --color-text: #ffffff;
+    --color-text-muted: #aaaaaa;
+    --spacing-md: 1rem;
+}
