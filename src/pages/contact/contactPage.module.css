@@ -6,6 +6,8 @@
     color: var(--color-text);
     max-width: 480px;
     margin: 0 auto;
+    padding-bottom: 96px;
+    box-sizing: border-box;
 }
 
 .header{
@@ -23,6 +25,7 @@
 .main{
     flex: 1;
     padding: var(--spacing-md);
+    padding-bottom: calc(var(--spacing-md) + 24px);
     display: flex;
     flex-direction: column;
     gap: var(--spacing-md);
@@ -70,7 +73,7 @@
 .mapWrapper{
     border-radius: 12px;
     overflow: hidden;
-    height: 200px;
+    min-height: 320px;
 }
 
 .map{
