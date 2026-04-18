@@ -9,19 +9,19 @@ import styles from './navBar.module.css'
 function Navbar() {
     return (
         <nav className={styles.navBar}>
-            <a href="/" className={styles.navItem}> 
+            <a href="../../pages/home" className={styles.navItem}> 
                 <img src={home} alt="Home" className={styles.icon}/>
             </a>
-            <a href="/search" className={styles.navItem}> 
+            <a href="../../pages/search" className={styles.navItem}> 
                 <img src={search} alt="Search" className={styles.icon}/>
             </a>
-            <a href="/wishlist" className={styles.navItem}> 
+            <a href="../../pages/wishList" className={styles.navItem}> 
                 <img src={heart} alt="Wishlist" className={styles.icon}/>
             </a>
-            <a href="/history" className={styles.navItem}> 
+            <a href="../../pages/history" className={styles.navItem}> 
                 <img src={clock} alt="History" className={styles.icon}/>
             </a>
-            <a href="/contact" className={styles.navItemActive}> 
+            <a href="../../pages/contact" className={styles.navItemActive}> 
                 <img src={phone} alt="Contact" className={styles.icon}/>
             </a>
         </nav>
