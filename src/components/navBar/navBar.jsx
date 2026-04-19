@@ -4,7 +4,7 @@ import heart   from '../../assets/icons/Heart.png';
 import clock   from '../../assets/icons/Clock.png';
 import phone   from '../../assets/icons/Phone.png';
 import styles  from './navBar.module.css';
- 
+
 const NAV_ITEMS = [
     { page: 'home',     icon: home,   alt: 'Home'     },
     { page: 'search',   icon: search, alt: 'Buscar'   },
@@ -12,7 +12,7 @@ const NAV_ITEMS = [
     { page: 'history',  icon: clock,  alt: 'Historial'},
     { page: 'contact',  icon: phone,  alt: 'Contacto' },
 ];
- 
+
 function Navbar({ currentPage, onNavigate }) {
     return (
         <nav className={styles.navBar}>
@@ -30,5 +30,5 @@ function Navbar({ currentPage, onNavigate }) {
         </nav>
     );
 }
- 
+
 export default Navbar;

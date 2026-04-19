@@ -1,17 +1,26 @@
 import { useEffect, useState } from 'react';
-import getAllGames from '../../services/api';
+import { getAllGames } from '../../services/api';
 import styles from './homePage.module.css';
-import navBar from '../../components/navBar/navBar';
+import Navbar from '../../components/navBar/navBar';
 import logo from '../../assets/images/logo.png';
-import homeImage from '../../assets/images/PcGmaer.jpg';
+import homeImage from '../../assets/images/PcGamer.jpg';
 
-function HomePage(){
-    const [games, setgames] = useState([])
+function HomePage({ onNavigate }){
+    const [games, setGames] = useState([])
 
     useEffect(() => {
         async function loadGames(){
-            const data = await getAllGames()
-            setGames(data)
+            try{
+                const data = await getAllGames()
+            
+                const randomGames = data
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 10)
+
+                setGames(randomGames)
+            } catch (error) {
+                console.error('Error al cargar juegos', error)
+            }
         }
 
         loadGames()
@@ -29,14 +38,41 @@ function HomePage(){
             {/* Contenido principal */}
             <div className={styles.main}>
                 <div className={styles.heroSection}>
-                    <h1 className={styles.tittle}>GamX</h1>
-                    <p className={styles.description}>
-                        Bienvenido a GamX, la mejor plataforma para los amantes de los videojuegos. Explora e investiga sobre los mejores videojuegos free to play.
-                    </p>
+                    <img className={styles.heroImage} src={homeImage} alt="Imagen de fondo"/>
+                    <div className={styles.Text}>
+                        <h1 className={styles.title}>GamX</h1>
+                        <p className={styles.description}>
+                            Bienvenido a GamX, la mejor plataforma para los amantes de los videojuegos. Explora e investiga sobre los mejores videojuegos free to play.
+                        </p>
+                    </div>
                 </div>
 
-
+                <div className={styles.gamesSection}>
+                    <section className={styles.gamesSection}>
+                        {
+                            games.map(
+                                game => (
+                                    <div key={game.id} className={styles.gameCard}>
+                                        <img className={styles.gameImage} src={game.thumbnail} alt={game.title} loading="lazy" />
+                                        <div className={styles.gameInfo}>
+                                            <p className={styles.gameTitle}>
+                                                {game.title}
+                                            </p>
+                                            <p className={styles.gameGenre}>
+                                                {game.genre}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )
+                            )
+                        }
+                    </section>
+                </div> 
             </div>
+
+            <Navbar currentPage="home" onNavigate={onNavigate} />
         </div>
     )
 }
+
+export default HomePage;
