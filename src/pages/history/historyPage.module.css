@@ -1,0 +1,30 @@
+.page {
+  min-height: 100vh;
+  background: #111;
+  color: #fff;
+}
+
+.main {
+  padding: 20px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.gameCard {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: #222;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.gameCard img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}

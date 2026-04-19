@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './searchPage.module.css';
 import Navbar from '../../components/navBar/navBar';
 import logo from '../../assets/images/logo.png';
@@ -27,6 +28,7 @@ const PLAT_MAP  = { 'Todas': '', 'PC': 'pc', 'Navegador': 'browser' };
 
 /* ── Componente ─────────────────────────────── */
 function SearchPage({ onNavigate }) {
+    const navigate = useNavigate();
     const [text,       setText]       = useState('');
     const [category,   setCategory]   = useState('Todos');
     const [platform,   setPlatform]   = useState('Todas');
@@ -124,6 +126,7 @@ function SearchPage({ onNavigate }) {
 
     return (
         <div className={styles.pageWrapper}>
+            <Navbar />
 
             {/* ── Header ── */}
             <header className={styles.header}>
@@ -271,7 +274,7 @@ function SearchPage({ onNavigate }) {
                         ) : (
                             <section className={styles.resultList}>
                                 {paged.map(game => (
-                                    <div key={game.id} className={styles.gameCard}>
+                                    <div key={game.id} className={styles.gameCard} onClick={() => navigate(`/game/${game.id}`)}>
                                         <img
                                             src={game.thumbnail}
                                             alt={game.title}

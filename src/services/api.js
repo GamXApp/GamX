@@ -1,4 +1,4 @@
-const BASE_URL = 'https://www.freetogame.com/api'
+const BASE_URL = '/api'
 
 export async function getAllGames(){
     const response = await fetch(`${BASE_URL}/games`)
@@ -7,7 +7,7 @@ export async function getAllGames(){
 }
 
 export async function getGameById(id){
-    const response = await fetch(`{BASE_URL}/game?=id=${id}`)
+    const response = await fetch(`${BASE_URL}/game?id=${id}`)
     const data = await response.json()
     return data
 }

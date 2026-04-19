@@ -8,6 +8,7 @@ import mapIcon   from '../../assets/icons/Map pin.png';
 function ContactPage({ onNavigate }) {
     return (
         <div className={styles.pageWrapper}>
+            <Navbar />
             {/* Header con el logo */}
             <header className={styles.header}>
                 <img

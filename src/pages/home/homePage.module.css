@@ -1,0 +1,34 @@
+.homePageWrapper {
+  min-height: 100vh;
+  background: #111;
+  color: #fff;
+}
+
+.header {
+  padding: 20px;
+  text-align: center;
+}
+
+.logos {
+  width: 100px;
+  height: auto;
+}
+
+.main {
+  padding: 20px;
+}
+
+.heroSection {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.tittle {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 1.2rem;
+  color: #ccc;
+}

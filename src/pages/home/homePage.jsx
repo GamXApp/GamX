@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import getAllGames from '../../services/api';
+import { getAllGames } from '../../services/api';
 import styles from './homePage.module.css';
-import navBar from '../../components/navBar/navBar';
+import Navbar from '../../components/navBar/navBar';
 import logo from '../../assets/images/logo.png';
-import homeImage from '../../assets/images/PcGmaer.jpg';
+import homeImage from '../../assets/images/PcGamer.jpg';
 
 function HomePage(){
-    const [games, setgames] = useState([])
+    const [games, setGames] = useState([])
 
     useEffect(() => {
         async function loadGames(){
@@ -19,6 +19,7 @@ function HomePage(){
 
     return(
         <div className={styles.homePageWrapper}>
+            <Navbar />
             {/* Header con el logo*/}
             <header className={styles.header}>
                 <img
@@ -40,3 +41,5 @@ function HomePage(){
         </div>
     )
 }
+
+export default HomePage;
