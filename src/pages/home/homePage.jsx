@@ -48,6 +48,7 @@ function HomePage({ onNavigate }){
                 </div>
 
                 <div className={styles.gamesSection}>
+                    <h2 className={styles.discover}>Descubre</h2>
                     <section className={styles.gamesSection}>
                         {
                             games.map(
