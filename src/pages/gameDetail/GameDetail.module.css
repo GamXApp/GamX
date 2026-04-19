@@ -1,7 +1,13 @@
 .page {
-  min-height: 100vh;
-  background: #111;
-  color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    max-width: 480px;
+    margin: 0 auto;
+    padding-bottom: 96px;
+    box-sizing: border-box;
 }
 
 .heroWrap {
@@ -51,7 +57,9 @@
 }
 
 .body {
+  flex: 1;
   padding: 20px;
+  padding-bottom: calc(20px + 24px);
   max-width: 800px;
   margin: 0 auto;
 }

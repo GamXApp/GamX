@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getGameById } from '../../services/api.js'
 import { addToHistory, isInWishlist, addToWishlist, removeFromWishlist } from '../../services/storage.js'
 import AppHeader from '../../components/AppHeader/AppHeader.jsx'
+import Navbar from '../../components/navBar/navBar.jsx'
 import WishlistModal from '../../components/WishlistModal/WishlistModal.jsx'
 import Spinner from '../../components/Spinner/Spinner.jsx'
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage.jsx'
 import styles from './GameDetail.module.css'
 
-export default function GameDetail() {
+export default function GameDetail( onNavigate ) {
   const { id }    = useParams()
   const navigate  = useNavigate()
   const [game,      setGame]      = useState(null)
@@ -18,7 +19,8 @@ export default function GameDetail() {
   const [inWish,    setInWish]    = useState(false)
   const [activeShot,setActiveShot]= useState(0)
 
-  async function load() {
+  // ✅ Usamos useCallback para que ESLint no se queje
+  const load = useCallback(async () => {
     setLoading(true); setError(null)
     try {
       const data = await getGameById(id)
@@ -28,9 +30,12 @@ export default function GameDetail() {
     } catch (err) {
       setError(err.message || 'No se pudo cargar el juego.')
     } finally { setLoading(false) }
-  }
+  }, [id]) // depende de id
 
-  useEffect(() => { load() }, [id])
+  // ✅ Ahora el useEffect depende de load
+  useEffect(() => {
+    load()
+  }, [load])
 
   function handleAdd(formData) {
     const added = addToWishlist(game, formData)
@@ -152,6 +157,7 @@ export default function GameDetail() {
           </section>
         )}
       </div>
+      <Navbar currentPage="gameDetail" onNavigate={onNavigate} />
     </div>
   )
 }
