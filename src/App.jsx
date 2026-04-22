@@ -8,7 +8,7 @@ import HomePage     from './pages/home/homePage';
 
 function App() {
     // Página activa: 'home' | 'search' | 'wishlist' | 'history' | 'contact'
-    const [currentPage, setCurrentPage] = useState('search');
+    const [currentPage, setCurrentPage] = useState('home');
 
     function renderPage() {
         switch (currentPage) {
