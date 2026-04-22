@@ -124,6 +124,7 @@
 
 .section {
   margin-bottom: 30px;
+  max-width: 350px;
 }
 
 .secLabel {
@@ -134,12 +135,20 @@
 
 .desc {
   line-height: 1.6;
+  width: 100%;
 }
 
 .shots {
   display: flex;
   gap: 10px;
   overflow-x: auto;
+  padding-bottom: 4px;
+
+  scrollbar-width: none;
+}
+
+.shots::-webkit-scrollbar{
+  display: none;
 }
 
 .shotBtn {
@@ -164,18 +173,25 @@
 .reqList {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .reqRow {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  background-color: var(--color-surface);
+  border-radius: 8px;
 }
 
 .reqLabel {
   color: #aaaaaa;
+  font-size: 0.75rem;
+  text-transform: uppercase;
 }
 
 .reqVal {
   font-weight: bold;
+  line-height: 1.4;
 }

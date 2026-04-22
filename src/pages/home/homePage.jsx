@@ -49,22 +49,28 @@ function HomePage( onNavigate ) {
                     </div>
                 </div>
 
-                <section className={styles.section}>
-                    <div className={styles.sectionHeader}>
-                        <h2>Destacados</h2>
-                    </div>
-                    <div className={styles.resultList}>
-                        {games.map(game => (
-                            <div key={game.id} className={styles.gameCard} onClick={() => navigate(`/game/${game.id}`)}>
-                                <img className={styles.cardThumb} src={game.thumbnail} alt={game.title} loading="lazy" />
-                                <div className={styles.cardInfo}>
-                                    <p className={styles.cardTitle}>{game.title}</p>
-                                    <p className={styles.cardGenre}>{game.genre}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </section> 
+                <div className={styles.gamesWrapper}>
+                    <h2 className={styles.discover}>Descubre</h2>
+                    <section className={styles.gamesSection}>
+                        {
+                            games.map(
+                                game => (
+                                    <div key={game.id} className={styles.gameCard}>
+                                        <img className={styles.gameImage} src={game.thumbnail} alt={game.title} loading="lazy" />
+                                        <div className={styles.gameInfo}>
+                                            <p className={styles.gameTitle}>
+                                                {game.title}
+                                            </p>
+                                            <p className={styles.gameGenre}>
+                                                {game.genre}
+                                            </p>
+                                        </div>
+                                    </div>
+                                )
+                            )
+                        }
+                    </section>
+                </div> 
             </div>
 
             <Navbar currentPage="home" onNavigate={onNavigate} />
