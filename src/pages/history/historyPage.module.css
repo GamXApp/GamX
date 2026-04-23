@@ -1,11 +1,3 @@
-/* ══════════════════════════════════════════════
-   historyPage.module.css
-   Mismo patrón que searchPage.module.css:
-   variables CSS del proyecto (--color-bg, --color-surface,
-   --color-primary, --color-text, --color-text-muted, --spacing-md)
-══════════════════════════════════════════════ */
-
-/* ── Contenedor principal ── */
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=DM+Sans:opsz,wght@9..40,100..1000&family=Rubik+Glitch&display=swap');
 
 .page {
@@ -20,7 +12,6 @@
     box-sizing: border-box;
 }
 
-/* ── Header ── */
 .header {
     padding: var(--spacing-md);
 }
@@ -33,7 +24,6 @@
     justify-content: center;
 }
 
-/* ── Main ── */
 .main {
     flex: 1;
     padding: var(--spacing-md);
@@ -43,36 +33,74 @@
     gap: var(--spacing-md);
 }
 
+/* ── Title row con botón limpiar todo ── */
+.titleRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
 .tittle {
     font-family: 'Black Ops One';
     font-size: 1.5rem;
     color: var(--color-primary);
+    margin: 0;
 }
 
-/* ══════════════════════════════════════════════
-   Lista de resultados
-══════════════════════════════════════════════ */
+.clearAllBtn {
+    background: none;
+    border: 1px solid rgba(229, 83, 75, 0.5);
+    border-radius: 8px;
+    color: #e5534b;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.clearAllBtn:hover {
+    background-color: rgba(229, 83, 75, 0.1);
+    border-color: #e5534b;
+}
+
+.empty {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+/* ── Lista ── */
 .resultList {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-/* Tarjeta de juego */
+/* Tarjeta */
 .gameCard {
     display: flex;
     align-items: center;
-    gap: 12px;
     background-color: var(--color-surface);
     border-radius: 12px;
     overflow: hidden;
     transition: opacity 0.2s ease;
-    cursor: pointer;
-    padding-right: var(--spacing-md);
 }
 
 .gameCard:hover {
-    opacity: 0.85;
+    opacity: 0.95;
+}
+
+.cardClickable {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+    padding-right: 4px;
 }
 
 .cardThumb {
@@ -105,4 +133,29 @@
     color: var(--color-primary);
     font-weight: 500;
     margin: 0;
+}
+
+/* ── Botón eliminar individual ── */
+.removeBtn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 68px;
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.removeBtn:hover {
+    color: #e5534b;
+    background-color: rgba(229, 83, 75, 0.08);
+}
+
+.removeBtn svg {
+    width: 18px;
+    height: 18px;
 }
