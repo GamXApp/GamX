@@ -1,29 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getHistory, saveHistory } from '../../services/storage';
 import Navbar from '../../components/navBar/navBar';
 import logo from '../../assets/images/logo.png';
 import styles from './historyPage.module.css';
-
+ 
 function HistoryPage() {
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = useState(() => getHistory());
+  const [confirmClear, setConfirmClear] = useState(false);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setHistory(getHistory());
-  }, []);
-
-  function removeGame(gameId) {
+ 
+  function removeGame(e, gameId) {
+    e.stopPropagation();
     const updated = history.filter(g => g.id !== gameId);
     saveHistory(updated);
     setHistory(updated);
   }
-
+ 
   function clearAll() {
+    if (!confirmClear) {
+      setConfirmClear(true);
+      setTimeout(() => setConfirmClear(false), 3000);
+      return;
+    }
     saveHistory([]);
     setHistory([]);
+    setConfirmClear(false);
   }
-
+ 
   return (
     <div className={styles.page}>
       <Navbar />
@@ -34,53 +38,61 @@ function HistoryPage() {
         <div className={styles.titleRow}>
           <h1 className={styles.tittle}>Historial</h1>
           {history.length > 0 && (
-            <button className={styles.clearAllBtn} onClick={clearAll}>
-              Limpiar todo
+            <button
+              className={`${styles.clearAllBtn} ${confirmClear ? styles.clearAllBtnConfirm : ''}`}
+              onClick={clearAll}
+            >
+              {confirmClear ? '¿Confirmar?' : 'Limpiar todo'}
             </button>
           )}
         </div>
-
+ 
         {history.length === 0 ? (
-          <p className={styles.empty}>No has visto ningún juego aún.</p>
+          <div className={styles.emptyState}>
+            <span className={styles.emptyIcon}>🎮</span>
+            <p className={styles.empty}>No has visto ningún juego aún.</p>
+          </div>
         ) : (
-          <div className={styles.resultList}>
-            {history.map(game => (
-              <div key={game.id} className={styles.gameCard}>
+          <>
+            <p className={styles.count}>{history.length} {history.length === 1 ? 'juego' : 'juegos'}</p>
+            <div className={styles.grid}>
+              {history.map(game => (
                 <div
-                  className={styles.cardClickable}
+                  key={game.id}
+                  className={styles.gameCard}
                   onClick={() => navigate(`/game/${game.id}`)}
                 >
-                  <img
-                    className={styles.cardThumb}
-                    src={game.thumbnail}
-                    alt={game.title}
-                    loading="lazy"
-                  />
+                  <div className={styles.thumbWrap}>
+                    <img
+                      className={styles.cardThumb}
+                      src={game.thumbnail}
+                      alt={game.title}
+                      loading="lazy"
+                    />
+                    <button
+                      className={styles.removeBtn}
+                      onClick={(e) => removeGame(e, game.id)}
+                      aria-label={`Quitar ${game.title} del historial`}
+                    >
+                      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round">
+                        <line x1="2" y1="2" x2="12" y2="12" />
+                        <line x1="12" y1="2" x2="2" y2="12" />
+                      </svg>
+                    </button>
+                  </div>
                   <div className={styles.cardInfo}>
                     <p className={styles.cardTitle}>{game.title}</p>
                     <p className={styles.cardGenre}>{game.genre}</p>
                   </div>
                 </div>
-                <button
-                  className={styles.removeBtn}
-                  onClick={() => removeGame(game.id)}
-                  aria-label={`Quitar ${game.title} del historial`}
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polyline points="3 6 5 6 21 6" />
-                    <path d="M19 6l-1 14H6L5 6" />
-                    <path d="M10 11v6M14 11v6" />
-                    <path d="M9 6V4h6v2" />
-                  </svg>
-                </button>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </>
         )}
       </main>
       <Navbar currentPage="history" />
     </div>
   );
 }
-
+ 
 export default HistoryPage;

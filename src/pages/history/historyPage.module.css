@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=DM+Sans:opsz,wght@9..40,100..1000&family=Rubik+Glitch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=DM+Sans:opsz,wght@9..40,100..1000&display=swap');
 
 .page {
     display: flex;
@@ -19,9 +19,6 @@
 .logo {
     width: 48px;
     height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .main {
@@ -30,10 +27,10 @@
     padding-bottom: calc(var(--spacing-md) + 24px);
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-md);
+    gap: 12px;
 }
 
-/* ── Title row con botón limpiar todo ── */
+/* ── Título + botón limpiar ── */
 .titleRow {
     display: flex;
     align-items: center;
@@ -42,120 +39,163 @@
 }
 
 .tittle {
-    font-family: 'Black Ops One';
+    font-family: 'Black Ops One', cursive;
     font-size: 1.5rem;
     color: var(--color-primary);
     margin: 0;
 }
 
 .clearAllBtn {
-    background: none;
-    border: 1px solid rgba(229, 83, 75, 0.5);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 8px;
-    color: #e5534b;
+    color: var(--color-text-muted);
     font-size: 0.75rem;
     font-weight: 600;
-    padding: 6px 12px;
+    font-family: 'DM Sans', sans-serif;
+    padding: 6px 14px;
     cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
     white-space: nowrap;
-    flex-shrink: 0;
 }
 
 .clearAllBtn:hover {
-    background-color: rgba(229, 83, 75, 0.1);
-    border-color: #e5534b;
+    background: rgba(229, 83, 75, 0.12);
+    border-color: rgba(229, 83, 75, 0.5);
+    color: #e5534b;
+}
+
+.clearAllBtnConfirm {
+    background: rgba(229, 83, 75, 0.18) !important;
+    border-color: #e5534b !important;
+    color: #e5534b !important;
+}
+
+/* ── Count ── */
+.count {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Empty state ── */
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 48px 16px;
+}
+
+.emptyIcon {
+    font-size: 2.5rem;
 }
 
 .empty {
     font-size: 0.9rem;
     color: var(--color-text-muted);
+    margin: 0;
+    text-align: center;
+    font-family: 'DM Sans', sans-serif;
 }
 
-/* ── Lista ── */
-.resultList {
-    display: flex;
-    flex-direction: column;
+/* ── Grid 2 columnas ── */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
 
-/* Tarjeta */
+/* ── Card ── */
 .gameCard {
-    display: flex;
-    align-items: center;
-    background-color: var(--color-surface);
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
-    transition: opacity 0.2s ease;
+    background-color: var(--color-surface);
+    cursor: pointer;
+    transition: transform 0.18s ease, opacity 0.18s ease;
 }
 
 .gameCard:hover {
-    opacity: 0.95;
+    transform: translateY(-2px);
+    opacity: 0.9;
 }
 
-.cardClickable {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 1;
-    min-width: 0;
-    cursor: pointer;
-    padding-right: 4px;
+/* Thumbnail wrapper — posición relativa para el botón X */
+.thumbWrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
 }
 
 .cardThumb {
-    flex-shrink: 0;
-    width: 110px;
-    height: 68px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    display: block;
 }
 
+/* ── Botón X estilo CrazyGames ── */
+.removeBtn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.72);
+    border: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 0.15s ease, transform 0.15s ease, background 0.15s ease;
+    z-index: 2;
+    padding: 0;
+}
+
+/* Mostrar el botón al hacer hover en la card */
+.gameCard:hover .removeBtn {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.removeBtn:hover {
+    background: #e5534b;
+}
+
+.removeBtn svg {
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+}
+
+/* ── Info debajo de la imagen ── */
 .cardInfo {
-    flex: 1;
-    min-width: 0;
+    padding: 8px 10px 10px;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
 }
 
 .cardTitle {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     color: var(--color-text);
     font-weight: 600;
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .cardGenre {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--color-primary);
     font-weight: 500;
     margin: 0;
-}
-
-/* ── Botón eliminar individual ── */
-.removeBtn {
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 68px;
-    background: none;
-    border: none;
-    color: var(--color-text-muted);
-    cursor: pointer;
-    transition: color 0.2s ease, background-color 0.2s ease;
-}
-
-.removeBtn:hover {
-    color: #e5534b;
-    background-color: rgba(229, 83, 75, 0.08);
-}
-
-.removeBtn svg {
-    width: 18px;
-    height: 18px;
+    font-family: 'DM Sans', sans-serif;
 }
