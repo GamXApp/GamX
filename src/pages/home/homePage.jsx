@@ -5,10 +5,79 @@ import styles from './homePage.module.css';
 import Navbar from '../../components/navBar/navBar';
 import logo from '../../assets/images/logo.png';
 import homeImage from '../../assets/images/PcGamer.jpg';
+import imageAction from '../../assets/images/imageAction.jpeg';
+import imageActionRpg from '../../assets/images/imageActionRpg.jpeg';
+import imageAdventure from '../../assets/images/imageAdventure.jpg';
+import imageBattleRoyale from '../../assets/images/imageBattleRoyale.jpg';
+import imageCard from '../../assets/images/imageCard.webp';
+import imageMultiplayer from '../../assets/images/imageMMORP.jpg';
+import imageMOBA from '../../assets/images/imageMOBA.jpg';
+import imageRacing from '../../assets/images/imageRacing.jpg';
+import imageShooter from '../../assets/images/imageShooter.jpg';
+import imageStrategy from '../../assets/images/imageStrategy.jpg';
+import imageTerror from '../../assets/images/imageTerror.jpg';
+import imageMMORPG from '../../assets/images/imageMMORPG.jpg';
+
+const categories = [
+    {
+        name: 'Acción',
+        image: imageAction,
+    },
+    {
+        name: 'RPG',
+        image: imageActionRpg,
+    },
+    {
+        name: 'Battle Royale',
+        image: imageBattleRoyale,
+    },
+    {
+        name: 'Aventura',
+        image: imageAdventure,
+    },
+    {
+        name: 'Estrategia',
+        image: imageStrategy,
+    },
+    {
+        name: 'Terror',
+        image: imageTerror,
+    },
+    {
+        name: 'Multijugador',
+        image: imageMultiplayer,
+    },
+    {
+        name: 'Carreras',
+        image: imageRacing,
+    },
+    {
+        name: 'Arcade',
+        image: imageCard,
+    },
+    {
+        name: 'MMORPG',
+        image: imageMMORPG,
+    },
+    {
+        name: 'Shooter',
+        image: imageShooter,
+    },
+    {
+        name: 'MOBA',
+        image: imageMOBA,
+    },
+    ];
 
 function HomePage( onNavigate ) {
     const navigate = useNavigate();
     const [games, setGames] = useState([])
+
+    // Cambio: esta funcion va dentro del componente porque necesita usar "navigate",
+    // que se crea con useNavigate() dentro de HomePage.
+    function goToCategory(categoryName){
+        navigate(`/search?category=${encodeURIComponent(categoryName)}`)
+    }
 
     useEffect(() => {
         async function loadGames(){
@@ -55,7 +124,10 @@ function HomePage( onNavigate ) {
                         {
                             games.map(
                                 game => (
-                                    <div key={game.id} className={styles.gameCard}>
+                                    <div 
+                                    key={game.id} 
+                                    className={styles.gameCard}
+                                    onClick={() => navigate(`/game/${game.id}`)}>
                                         <img className={styles.gameImage} src={game.thumbnail} alt={game.title} loading="lazy" />
                                         <div className={styles.gameInfo}>
                                             <p className={styles.gameTitle}>
@@ -71,6 +143,32 @@ function HomePage( onNavigate ) {
                         }
                     </section>
                 </div> 
+
+                <section className={styles.categoriesSection}>
+                    <h2 className={styles.discover}>Categorías</h2>
+
+                    <div className={styles.categoryGrid}>
+                        {categories.map(category => (
+                            <button 
+                                key={category.name}
+                                className={styles.categoryCard}
+                                // Cambio: mandamos solo el nombre de la categoria.
+                                // Antes se mandaba el objeto completo y la URL quedaba mal.
+                                onClick={() => goToCategory(category.name)}
+                            > 
+                                <img 
+                                className={styles.categoryImage}
+                                src={category.image} alt={category.name} />
+
+                                <span className={styles.categoryName}>
+                                    {category.name}
+                                </span>
+                            </button>
+                            ))
+
+                        }
+                    </div>
+                </section>
             </div>
 
             <Navbar currentPage="home" onNavigate={onNavigate} />
