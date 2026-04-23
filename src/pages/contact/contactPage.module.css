@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=DM+Sans:opsz,wght@9..40,100..1000&family=Rubik+Glitch&display=swap');
+
 .pageWrapper{
     display: flex;
     flex-direction: column;
@@ -32,6 +34,7 @@
 }
 
 .tittle{
+    font-family: 'Black Ops one';
     font-size: 1.5rem;
     color: var(--color-primary);
 }

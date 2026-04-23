@@ -1,0 +1,15 @@
+.error {
+  text-align: center;
+  padding: 20px;
+  color: #dc3545;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

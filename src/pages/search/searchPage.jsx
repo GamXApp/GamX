@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import styles from './searchPage.module.css';
 import Navbar from '../../components/navBar/navBar';
 import logo from '../../assets/images/logo.png';
@@ -27,8 +28,17 @@ const PLAT_MAP  = { 'Todas': '', 'PC': 'pc', 'Navegador': 'browser' };
 
 /* ── Componente ─────────────────────────────── */
 function SearchPage({ onNavigate }) {
+
+    const [searchParams] = useSearchParams();
+    const categoryFromUrl = searchParams.get('category');
+
+    // Cambio: validamos que la categoria que llega por URL exista en CAT_MAP.
+    // Si llega algo invalido, como "[object Object]", usamos "Todos" para evitar un filtro roto.
+    const initialCategory = CAT_MAP[categoryFromUrl] !== undefined ? categoryFromUrl : 'Todos';
+
+    const navigate = useNavigate();
     const [text,       setText]       = useState('');
-    const [category,   setCategory]   = useState('Todos');
+    const [category,   setCategory]   = useState(initialCategory);
     const [platform,   setPlatform]   = useState('Todas');
     const [filterOpen, setFilterOpen] = useState(false); // 'category' | 'platform' | false
     const [games,      setGames]      = useState([]);
@@ -124,6 +134,7 @@ function SearchPage({ onNavigate }) {
 
     return (
         <div className={styles.pageWrapper}>
+            <Navbar />
 
             {/* ── Header ── */}
             <header className={styles.header}>
@@ -271,7 +282,7 @@ function SearchPage({ onNavigate }) {
                         ) : (
                             <section className={styles.resultList}>
                                 {paged.map(game => (
-                                    <div key={game.id} className={styles.gameCard}>
+                                    <div key={game.id} className={styles.gameCard} onClick={() => navigate(`/game/${game.id}`)}>
                                         <img
                                             src={game.thumbnail}
                                             alt={game.title}
