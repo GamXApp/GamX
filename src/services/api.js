@@ -20,6 +20,11 @@ export async function filterGames({platform, category, sort} = {}){
     if(sort) params.append('sort-by', sort)
 
     const response = await fetch(`${BASE_URL}/games?${params.toString()}`)
+
+    if(!response.ok){
+        throw new Error(`Error ${respose.status}`)
+    }
+
     const data = await response.json()
     return data
 }

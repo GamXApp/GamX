@@ -50,16 +50,19 @@
 }
 
 /* ══════════════════════════════════════════════
-   Barra de búsqueda
+    Barra de búsqueda
 ══════════════════════════════════════════════ */
-.searchBar {
+.searchControls {
     display: flex;
-    align-items: center;
+    align-items: stretch;
+    width: 100%;
     gap: 8px;
+    flex-wrap: nowrap;
 }
 
 .inputWrap {
     flex: 1;
+    min-width: 0;
     position: relative;
     display: flex;
     align-items: center;
@@ -119,11 +122,14 @@
 .filterWrap {
     position: relative;
     flex-shrink: 0;
+    display: flex;
+    align-items: stretch;
 }
 
 .filterBtn {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 5px;
     background-color: var(--color-primary);
     border: 1px solid transparent;
@@ -135,6 +141,7 @@
     white-space: nowrap;
     transition: background-color 0.2s ease, border-color 0.2s ease;
     position: relative;
+    min-width: 96px;
 }
 
 .filterBtn:hover {
@@ -399,6 +406,7 @@
     justify-content: center;
     gap: 6px;
     padding: 4px 0;
+    flex-wrap: nowrap;
 }
 
 .pageBtn {
@@ -443,4 +451,22 @@
     padding: 0 2px;
     font-size: 0.875rem;
     user-select: none;
+}
+
+@media (max-width: 480px) {
+    .pagination {
+        gap: 4px;
+    }
+
+    .pageBtn {
+        min-width: 30px;
+        height: 30px;
+        padding: 0 4px;
+        font-size: 0.8rem;
+    }
+
+    .dropdown {
+        width: min(220px, calc(100vw - 48px));
+        right: 0;
+    }
 }

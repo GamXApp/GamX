@@ -9,6 +9,8 @@ import WishlistPage from './pages/wishList/wishListPage';
 import HistoryPage  from './pages/history/historyPage';
  
 function App() {
+    const [currentPage, setCurrentPage] = useState('home');
+    
     return (
         <BrowserRouter>
             <Routes>
