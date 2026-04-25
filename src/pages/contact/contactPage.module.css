@@ -12,18 +12,6 @@
     box-sizing: border-box;
 }
 
-.header{
-    padding: var(--spacing-md);
-}
-
-.logo{
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .main{
     flex: 1;
     padding: var(--spacing-md);

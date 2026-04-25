@@ -1,5 +1,6 @@
 import styles    from './contactPage.module.css';
 import Navbar    from '../../components/navBar/navBar';
+import AppHeader from '../../components/AppHeader/AppHeader';
 import logo      from '../../assets/images/logo.png';
 import mailIcon  from '../../assets/icons/Mail.png';
 import phoneIcon from '../../assets/icons/Phone.png';
@@ -10,13 +11,10 @@ function ContactPage({ onNavigate }) {
         <div className={styles.pageWrapper}>
             <Navbar />
             {/* Header con el logo */}
-            <header className={styles.header}>
-                <img
-                    className={styles.logo}
-                    src={logo}
-                    alt="GamX"
-                />
-            </header>
+            <AppHeader
+                title='GamX'
+                showLogo
+            ></AppHeader>
 
             {/* Contenido principal */}
             <main className={styles.main}>

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './searchPage.module.css';
 import Navbar from '../../components/navBar/navBar';
+import AppHeader from '../../components/AppHeader/AppHeader'
 import logo from '../../assets/images/logo.png';
 import searchIcon from '../../assets/icons/Search.png';
 import { CATEGORIES, PLATFORMS } from '../../components/Search/search';
@@ -50,9 +51,10 @@ function SearchPage({ onNavigate }) {
         <div className={styles.pageWrapper}>
             <Navbar />
 
-            <header className={styles.header}>
-                <img src={logo} alt="GamX" className={styles.logo} />
-            </header>
+            <AppHeader
+                title='GamX'
+                showLogo
+            ></AppHeader>
 
             <main className={styles.main}>
                 <h1 className={styles.tittle}>Buscar</h1>

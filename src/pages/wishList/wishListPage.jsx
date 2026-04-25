@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getWishlist } from '../../services/storage';
 import Navbar from '../../components/navBar/navBar';
+import AppHeader from '../../components/AppHeader/AppHeader';
 import logo from '../../assets/images/logo.png';
 import styles from './wishListPage.module.css';
 
@@ -21,9 +22,11 @@ function WishlistPage() {
   return (
     <div className={styles.page}>
       <Navbar />
-      <header className={styles.header}>
-        <img src={logo} alt="GamX" className={styles.logo} />
-      </header>
+      <AppHeader
+        title='GamX'
+        showLogo
+      ></AppHeader>
+
       <main className={styles.main}>
         <h1 className={styles.tittle}>Lista de Deseos</h1>
         {wishlist.length === 0 ? (

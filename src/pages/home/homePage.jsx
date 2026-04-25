@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAllGames } from '../../services/api';
 import styles from './homePage.module.css';
 import Navbar from '../../components/navBar/navBar';
+import AppHeader from '../../components/AppHeader/AppHeader'
 import logo from '../../assets/images/logo.png';
 import homeImage from '../../assets/images/PcGamer.jpg';
 import imageAction from '../../assets/images/imageAction.jpeg';
@@ -100,11 +101,10 @@ function HomePage( onNavigate ) {
     return(
         <div className={styles.homePageWrapper}>
             {/* Header con el logo*/}
-            <header className={styles.header}>
-                <img
-                className={styles.logo} 
-                src={logo} alt="logo" />
-            </header>
+            <AppHeader 
+                title='GamX'
+                showLogo
+            ></AppHeader>
 
             {/* Contenido principal */}
             <div className={styles.main}>

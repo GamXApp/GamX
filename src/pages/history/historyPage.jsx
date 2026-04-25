@@ -2,6 +2,7 @@ import { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getHistory, saveHistory } from '../../services/storage';
 import Navbar from '../../components/navBar/navBar';
+import AppHeader from '../../components/AppHeader/AppHeader';
 import logo from '../../assets/images/logo.png';
 import styles from './historyPage.module.css';
  
@@ -31,9 +32,12 @@ function HistoryPage() {
   return (
     <div className={styles.page}>
       <Navbar />
-      <header className={styles.header}>
-        <img src={logo} alt="GamX" className={styles.logo} />
-      </header>
+      
+      <AppHeader
+        title='GamX'
+        showLogo
+      ></AppHeader>
+
       <main className={styles.main}>
         <div className={styles.titleRow}>
           <h1 className={styles.tittle}>Historial</h1>
