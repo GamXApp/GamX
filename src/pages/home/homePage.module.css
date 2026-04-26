@@ -1,182 +1,212 @@
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=DM+Sans:opsz,wght@9..40,100..1000&family=Rubik+Glitch&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=DM+Sans:opsz,wght@9..40,300..700&display=swap');
 
-.homePageWrapper{
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    margin: 0 auto;
-    padding-bottom: 96px;
-    box-sizing: border-box;
-    max-width: 480px;
+/* ── Hero ── */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 56vw;      /* mobile: taller hero */
+  min-height: 260px;
+  max-height: 520px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+
+  /* Desktop: account for TopBar */
+  margin-top: 0;
 }
 
-.header{
-    padding: var(--spacing-md);
+@media (min-width: 1024px) {
+  .hero {
+    height: 420px;
+    max-height: 480px;
+    margin-top: var(--topbar-h);
+  }
 }
 
-.logo{
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.heroBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
 }
 
-.main{
-    flex: 1;
-    padding: var(--spacing-md);
-    padding-bottom: calc(var(--spacing-md) + 24px);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(13,13,20,1)   0%,
+    rgba(13,13,20,0.6) 50%,
+    rgba(13,13,20,0.1) 100%
+  );
 }
 
-.heroSection{
-    position: relative;
-    width: 100%;
-    height: 400px;
+.heroContent {
+  position: relative;
+  z-index: 1;
+  padding: var(--space-6) var(--content-pad);
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
-.heroImage{
-    opacity: 0.4;
-    width: 100%;
-    height: 360px;
-    object-fit: cover;
+.heroTitle {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  color: var(--color-primary);
+  text-shadow: var(--glow-md);
+  line-height: 1;
+  margin-bottom: var(--space-2);
 }
 
-.Text{
-    position: absolute;
-    top: 50%;
-    transform: translateY(-60%);
-    z-index: 1;
-    text-align: center;
+.heroSub {
+  font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+  color: rgba(240,240,240,0.8);
+  max-width: 480px;
+  margin-bottom: var(--space-4);
 }
 
-.title{
-    font-family: 'Black Ops One';
-    font-size: 2.4rem;
-    color: var(--color-primary);
+.heroCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-primary);
+  color: #000;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: box-shadow var(--t-fast), transform var(--t-fast);
 }
 
-.description{
-    font-size: 1.2rem;
-    color: var(--color-text-muted);
+.heroCta:hover {
+  box-shadow: var(--glow-md);
+  transform: translateY(-1px);
 }
 
-.gamesWrapper{
-    width: 100%;
+/* ── Container ── */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--content-pad);
+  /* Mobile: space for bottom nav */
+  padding-bottom: calc(var(--navbar-h) + var(--space-6));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
 }
 
-.discover{
-    margin-bottom: 8px;
-    font-family: 'Black Ops One';
-    font-size: 32px;
-    color: var(--color-primary);
+@media (min-width: 1024px) {
+  .container {
+    padding-bottom: var(--space-10);
+  }
 }
 
-.gamesSection{
-    display: flex;
-    gap: 16px;
-    overflow-x: auto;
-    padding: 8px 0 16px;
-    scrollbar-width: none;
+/* ── Section ── */
+.section {}
+
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
 }
 
-.gamesSection::-webkit-scrollbar{
-    display: none;
+/* ── Discover grid ──
+   Mobile:  horizontal scroll strip
+   Tablet:  2 cols
+   Desktop: 4 cols
+── */
+.discoverGrid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 260px;
+  gap: var(--space-3);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+  scrollbar-width: none;
 }
 
-.gameCard{
-    flex: 0 0 350px;
-    background-color: var(--color-surface);
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-}
+.discoverGrid::-webkit-scrollbar { display: none; }
 
-.gameCard:hover{
-    opacity: 0.85;
-}
-
-.gameImage{
-    flex-shrink: 0;
-    border-radius: 12px 12px 0 0;
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.gameInfo{
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.gameTitle{
-    font-size: 1.2rem;
-    color: var(--color-text);
-    font-weight: 600;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.gameGenre{
-    font-size: 0.75rem solid;
-    color: var(--color-primary);
-    font-weight: 500;
-    margin: 0;
-    padding-bottom: 5px;
-}
-
-.categoriesSection{
-    width: 100%;
-    margin-top: 32px;
-}
-
-.categoryGrid{
-    display: grid;
+@media (min-width: 768px) {
+  .discoverGrid {
+    grid-auto-flow: unset;
+    grid-auto-columns: unset;
     grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
+    overflow-x: unset;
+  }
 }
 
-.categoryCard{
-    position: relative;
-    height: 120px;
-    border: none;
-    border-radius: 8px;
-    overflow: hidden;
-    padding: 0;
-    cursor: pointer;
-    background-color: var(--color-surface);
+@media (min-width: 1024px) {
+  .discoverGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
-.categoryImage{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.45;
-    transition: transform 0.25s ease, opacity 0.25s ease;
+/* ── Category grid ──
+   Mobile:  2 cols
+   Tablet:  3 cols
+   Desktop: 6 cols
+── */
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
 }
 
-.categoryCard:hover .categoryImage{
-    transform: scale(1.21);
-    opacity: 1;
+@media (min-width: 768px) {
+  .categoryGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-.categoryName{
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.3rem;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+@media (min-width: 1024px) {
+  .categoryGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.categoryCard {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  background: var(--color-surface);
+}
+
+.categoryImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.45;
+  transition: opacity var(--t-base), transform var(--t-slow);
+}
+
+.categoryCard:hover .categoryImg {
+  opacity: 0.85;
+  transform: scale(1.08);
+}
+
+.categoryName {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(0.8rem, 2vw, 1rem);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  pointer-events: none;
+  z-index: 1;
 }

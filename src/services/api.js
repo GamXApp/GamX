@@ -7,7 +7,7 @@ export async function getAllGames(){
 }
 
 export async function getGameById(id){
-    const response = await fetch(`${BASE_URL}/game?id=${id}`)
+    const response = await fetch(`${BASE_URL}/game?=id=${id}`)
     const data = await response.json()
     return data
 }
@@ -23,5 +23,3 @@ export async function filterGames({platform, category, sort} = {}){
     const data = await response.json()
     return data
 }
-
-
