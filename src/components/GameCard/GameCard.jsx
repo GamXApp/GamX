@@ -41,11 +41,7 @@ export default function GameCard({ game, onRemove, size = 'default' }) {
             onClick={handleRemove}
             aria-label={`Quitar ${game.title}`}
           >
-            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor"
-                 strokeWidth="2.2" strokeLinecap="round">
-              <line x1="2" y1="2" x2="12" y2="12" />
-              <line x1="12" y1="2" x2="2" y2="12" />
-            </svg>
+            <span aria-hidden="true">×</span>
           </button>
         )}
 

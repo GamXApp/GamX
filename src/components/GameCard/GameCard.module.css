@@ -63,20 +63,34 @@
   position: absolute;
   top: 6px;
   right: 6px;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: rgba(0,0,0,0.75);
+
+  width: 28px;
+  height: 28px;
+  padding: 0;
   border: none;
+  border-radius: 50%;
+
+  background: rgba(0,0,0,0.75);
   color: #fff;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  line-height: 1;
   cursor: pointer;
-  opacity: 0;
-  transform: scale(0.75);
+  opacity: 1;
+  transform: scale(1);
   transition: opacity var(--t-fast), transform var(--t-fast), background var(--t-fast);
-  z-index: 2;
+  z-index: 4;
+}
+
+.removeBtn span{
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  transform: translateY(-1px);
 }
 
 .card:hover .removeBtn,
@@ -86,11 +100,6 @@
 }
 
 .removeBtn:hover { background: var(--color-danger); }
-
-.removeBtn svg {
-  width: 10px;
-  height: 10px;
-}
 
 /* ── Info section ── */
 .info {

@@ -27,6 +27,14 @@ export function usePWA() {
 
   /* ── Detect SW update via vite-plugin-pwa virtual module ── */
   useEffect(() => {
+    if (import.meta.env.DEV) {
+      navigator.serviceWorker?.getRegistrations()
+        .then(registrations => {
+          registrations.forEach(registration => registration.unregister())
+        })
+      return
+    }
+
     // Dynamic import so the build doesn't break if the virtual module
     // isn't available (e.g. during unit tests).
     import('virtual:pwa-register')
