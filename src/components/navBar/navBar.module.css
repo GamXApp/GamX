@@ -1,47 +1,60 @@
-.navBar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    max-width: 480px;
-    padding: 12px 0;
-    background-color: var(--color-surface);
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
+/* ── Mobile bottom navigation ── */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--navbar-h);
+  background: rgba(13,13,20,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--color-border);
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
-/* Reset de button para que se vea igual que el <a> anterior */
-.navItem,
-.navItemActive {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
-    border-radius: 8px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-    -webkit-tap-highlight-color: transparent;
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex: 1;
+  padding: var(--space-2) var(--space-1);
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color var(--t-fast);
+  -webkit-tap-highlight-color: transparent;
 }
 
-.navItem {
-    opacity: 0.5;
-}
-
-.navItem:hover {
-    opacity: 1;
-}
-
-.navItemActive {
-    opacity: 1;
-}
+.item:hover  { color: var(--color-text); }
+.itemActive  { color: var(--color-primary); }
 
 .icon {
-    width: 24px;
-    height: 24px;
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  opacity: 0.6;
+  transition: opacity var(--t-fast), filter var(--t-fast);
+}
+
+.item:hover .icon  { opacity: 0.9; }
+.itemActive .icon  {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px var(--color-primary));
+}
+
+.label {
+  line-height: 1;
+}
+
+/* ── Hide on desktop: show TopBar instead ── */
+@media (min-width: 1024px) {
+  .navbar { display: none; }
 }

@@ -1,0 +1,160 @@
+/* ── Base card ── */
+.card {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform var(--t-base), box-shadow var(--t-base);
+  outline: none;
+}
+
+.card:hover,
+.card:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+}
+
+/* ── Thumbnail wrapper ── */
+.thumbWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--t-slow);
+}
+
+.card:hover .thumb {
+  transform: scale(1.04);
+}
+
+.thumbOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* ── Genre badge (grid mode) ── */
+.genre {
+  position: absolute;
+  bottom: var(--space-2);
+  left: var(--space-2);
+  padding: 2px 8px;
+  background: rgba(57,255,20,0.15);
+  border: 1px solid rgba(57,255,20,0.35);
+  border-radius: 999px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* ── Remove button ── */
+.removeBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.75);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity var(--t-fast), transform var(--t-fast), background var(--t-fast);
+  z-index: 2;
+}
+
+.card:hover .removeBtn,
+.card:focus-within .removeBtn {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.removeBtn:hover { background: var(--color-danger); }
+
+.removeBtn svg {
+  width: 10px;
+  height: 10px;
+}
+
+/* ── Info section ── */
+.info {
+  padding: var(--space-2) var(--space-3) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ═══════════════════════════════════════
+   Compact (list row) variant
+═══════════════════════════════════════ */
+.compact {
+  display: flex;
+  flex-direction: row;
+  border-radius: var(--radius-md);
+}
+
+.compact .thumbWrap {
+  aspect-ratio: unset;
+  flex-shrink: 0;
+  width: 110px;
+  height: 70px;
+}
+
+.compact .info {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-2) var(--space-3);
+  justify-content: center;
+}
+
+.compact .title {
+  font-size: 0.88rem;
+}
+
+.genreCompact {
+  font-size: 0.72rem;
+  color: var(--color-primary);
+  font-weight: 500;
+  margin: 0;
+}
+
+.publisher {
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Compact remove button always visible on touch ── */
+@media (hover: none) {
+  .removeBtn {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

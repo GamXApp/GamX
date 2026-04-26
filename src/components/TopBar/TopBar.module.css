@@ -1,0 +1,117 @@
+/* ── Hidden on mobile ── */
+.topbar {
+  display: none;
+}
+
+/* ── Visible on desktop ── */
+@media (min-width: 1024px) {
+  .topbar {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--topbar-h);
+    background: rgba(13,13,20,0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 100;
+  }
+
+  .inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-8);
+    gap: var(--space-8);
+  }
+
+  /* ── Logo ── */
+  .logoBtn {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  .logoImg {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+  }
+
+  .logoText {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--color-primary);
+    letter-spacing: 0.04em;
+    text-shadow: var(--glow-sm);
+  }
+
+  /* ── Nav ── */
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .navItem {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-family: var(--font-body);
+    border-radius: var(--radius-md);
+    transition: color var(--t-fast), background var(--t-fast);
+    white-space: nowrap;
+  }
+
+  .navItem:hover {
+    color: var(--color-text);
+    background: rgba(255,255,255,0.05);
+  }
+
+  .navItemActive {
+    color: var(--color-primary);
+    background: var(--color-primary-dim);
+  }
+
+  .navIcon {
+    width: 17px;
+    height: 17px;
+    object-fit: contain;
+    opacity: 0.7;
+  }
+
+  .navItemActive .navIcon {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px var(--color-primary));
+  }
+
+  /* Active indicator line */
+  .activeLine {
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: 2px;
+    box-shadow: var(--glow-sm);
+  }
+}

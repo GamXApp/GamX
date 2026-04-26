@@ -1,49 +1,44 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getWishlist } from '../../services/storage';
-import Navbar from '../../components/navBar/navBar';
-import logo from '../../assets/images/logo.png';
-import styles from './wishListPage.module.css';
+import { useState, useEffect } from 'react'
+import { getWishlist, removeFromWishlist } from '../../services/storage'
+import Layout from '../../components/Layout/Layout'
+import GameCard from '../../components/GameCard/GameCard'
+import styles from './wishListPage.module.css'
 
-function WishlistPage() {
-  const [wishlist, setWishlist] = useState([]);
-  const navigate = useNavigate();
+export default function WishlistPage() {
+  const [wishlist, setWishlist] = useState([])
 
-  useEffect(() => {
-    const fetchWishlist = async () => {
-      const data = await getWishlist();
-      setWishlist(data);
-    };
+  useEffect(() => { setWishlist(getWishlist()) }, [])
 
-    fetchWishlist();
-  }, []);
+  function handleRemove(id) {
+    removeFromWishlist(id)
+    setWishlist(prev => prev.filter(g => g.id !== id))
+  }
 
   return (
-    <div className={styles.page}>
-      <Navbar />
-      <header className={styles.header}>
-        <img src={logo} alt="GamX" className={styles.logo} />
-      </header>
-      <main className={styles.main}>
-        <h1 className={styles.tittle}>Lista de Deseos</h1>
-        {wishlist.length === 0 ? (
-          <p>No tienes juegos en tu lista de deseos.</p>
-        ) : (
-          <div className={styles.resultList}>
+    <Layout>
+      <div className={styles.titleRow}>
+        <h1 className={styles.title}>Lista de Deseos</h1>
+        {wishlist.length > 0 && (
+          <span className={styles.badge}>{wishlist.length}</span>
+        )}
+      </div>
+
+      {wishlist.length === 0 ? (
+        <div className={styles.empty}>
+          <span className={styles.emptyIcon}>💝</span>
+          <p>Tu lista de deseos está vacía.</p>
+          <p className={styles.emptyHint}>Agregá juegos desde su página de detalle.</p>
+        </div>
+      ) : (
+        <>
+          <p className={styles.count}>{wishlist.length} {wishlist.length === 1 ? 'juego' : 'juegos'}</p>
+          <div className={styles.grid}>
             {wishlist.map(game => (
-              <div key={game.id} className={styles.gameCard} onClick={() => navigate(`/game/${game.id}`)}>
-                <img className={styles.cardThumb} src={game.thumbnail} alt={game.title} loading="lazy" />
-                <div className={styles.cardInfo}>
-                  <p className={styles.cardTitle}>{game.title}</p>
-                  <p className={styles.cardGenre}>{game.genre}</p>
-                </div>
-              </div>
+              <GameCard key={game.id} game={game} onRemove={handleRemove} />
             ))}
           </div>
-        )}
-      </main>
-    </div>
-  );
+        </>
+      )}
+    </Layout>
+  )
 }
-
-export default WishlistPage;

@@ -1,108 +1,81 @@
-/* ══════════════════════════════════════════════
-   historyPage.module.css
-   Mismo patrón que searchPage.module.css:
-   variables CSS del proyecto (--color-bg, --color-surface,
-   --color-primary, --color-text, --color-text-muted, --spacing-md)
-══════════════════════════════════════════════ */
-
-/* ── Contenedor principal ── */
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=DM+Sans:opsz,wght@9..40,100..1000&family=Rubik+Glitch&display=swap');
-
-.page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    max-width: 480px;
-    margin: 0 auto;
-    padding-bottom: 96px;
-    box-sizing: border-box;
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
 }
 
-/* ── Header ── */
-.header {
-    padding: var(--spacing-md);
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: var(--color-primary);
 }
 
-.logo {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.clearBtn {
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all var(--t-fast);
+  white-space: nowrap;
 }
 
-/* ── Main ── */
-.main {
-    flex: 1;
-    padding: var(--spacing-md);
-    padding-bottom: calc(var(--spacing-md) + 24px);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
+.clearBtn:hover {
+  background: rgba(229,83,75,0.1);
+  border-color: rgba(229,83,75,0.4);
+  color: #e5534b;
 }
 
-.tittle {
-    font-family: 'Black Ops One';
-    font-size: 1.5rem;
-    color: var(--color-primary);
+.clearBtnConfirm {
+  background: rgba(229,83,75,0.15) !important;
+  border-color: #e5534b !important;
+  color: #e5534b !important;
 }
 
-/* ══════════════════════════════════════════════
-   Lista de resultados
-══════════════════════════════════════════════ */
-.resultList {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.count {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
 }
 
-/* Tarjeta de juego */
-.gameCard {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background-color: var(--color-surface);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: opacity 0.2s ease;
-    cursor: pointer;
-    padding-right: var(--spacing-md);
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-12) var(--space-4);
+  color: var(--color-text-muted);
+  text-align: center;
+  font-size: 0.9rem;
 }
 
-.gameCard:hover {
-    opacity: 0.85;
+.emptyIcon { font-size: 2.5rem; }
+
+/* ── Grid responsive ──
+   Mobile:  2 cols
+   Tablet:  3 cols
+   Desktop: 4–5 cols
+── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
 }
 
-.cardThumb {
-    flex-shrink: 0;
-    width: 110px;
-    height: 68px;
-    object-fit: cover;
+@media (min-width: 768px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-.cardInfo {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
+@media (min-width: 1024px) {
+  .grid { grid-template-columns: repeat(4, 1fr); }
 }
 
-.cardTitle {
-    font-size: 0.9rem;
-    color: var(--color-text);
-    font-weight: 600;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.cardGenre {
-    font-size: 0.75rem;
-    color: var(--color-primary);
-    font-weight: 500;
-    margin: 0;
+@media (min-width: 1280px) {
+  .grid { grid-template-columns: repeat(5, 1fr); }
 }
