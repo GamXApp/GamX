@@ -1,43 +1,191 @@
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.5);
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
   display: flex;
-  align-items: center;
+  align-items: flex-end;     /* mobile: slide up from bottom */
   justify-content: center;
+  z-index: 300;
+  padding: var(--space-4);
+}
+
+@media (min-width: 480px) {
+  .overlay {
+    align-items: center;     /* tablet+: centered */
+  }
 }
 
 .modal {
-  background: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  max-width: 400px;
   width: 100%;
+  max-width: 440px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl) var(--radius-xl) var(--radius-lg) var(--radius-lg);
+  padding: var(--space-5) var(--space-5) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  animation: slideUp 0.25s ease;
 }
 
+@media (min-width: 480px) {
+  .modal {
+    border-radius: var(--radius-xl);
+    animation: fadeIn 0.2s ease;
+  }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
+
+.closeBtn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: var(--space-1);
+  transition: color var(--t-fast);
+}
+.closeBtn:hover { color: var(--color-text); }
+
+/* ── Game row ── */
+.gameRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+}
+
+.gameThumb {
+  width: 72px;
+  height: 46px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+
+.gameName {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  margin: 0 0 2px;
+}
+
+.gameGenre {
+  font-size: 0.75rem;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+/* ── Form ── */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.fieldLabel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-dim);
+}
+
+.textarea {
+  width: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  padding: var(--space-3);
+  resize: none;
+  outline: none;
+  transition: border-color var(--t-fast);
+}
+.textarea::placeholder { color: var(--color-text-muted); }
+.textarea:focus        { border-color: var(--color-primary); }
+
+/* ── Priority buttons ── */
+.priorityRow {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.priorityBtn {
+  flex: 1;
+  padding: var(--space-2) 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-size: 0.82rem;
+  font-family: var(--font-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--t-fast);
+}
+
+.priorityBtn:hover        { border-color: var(--color-primary); color: var(--color-primary); }
+.priorityBtnActive        { background: var(--color-primary-dim); border-color: rgba(57,255,20,0.4); color: var(--color-primary); }
+
+/* ── Actions ── */
 .actions {
   display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-top: 20px;
+  gap: var(--space-3);
 }
 
-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+.cancelBtn,
+.confirmBtn {
+  flex: 1;
+  padding: var(--space-3) 0;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 700;
   cursor: pointer;
+  transition: all var(--t-fast);
 }
 
-button[type="submit"] {
-  background: #28a745;
-  color: #fff;
+.cancelBtn {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
 }
+.cancelBtn:hover { color: var(--color-text); border-color: rgba(255,255,255,0.2); }
 
-button[type="button"] {
-  background: #6c757d;
-  color: #fff;
+.confirmBtn {
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  color: #000;
 }
+.confirmBtn:hover { box-shadow: var(--glow-sm); }

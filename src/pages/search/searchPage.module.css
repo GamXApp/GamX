@@ -1,446 +1,335 @@
-/* ══════════════════════════════════════════════
-   searchPage.module.css
-   Mismo patrón que contactPage.module.css:
-   variables CSS del proyecto (--color-bg, --color-surface,
-   --color-primary, --color-text, --color-text-muted, --spacing-md)
-══════════════════════════════════════════════ */
-
-/* ── Contenedor principal ── */
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=DM+Sans:opsz,wght@9..40,100..1000&family=Rubik+Glitch&display=swap');
-
-.pageWrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    max-width: 480px;
-    margin: 0 auto;
-    padding-bottom: 96px;
-    box-sizing: border-box;
+/* ── Page layout: stacked mobile, sidebar+content desktop ── */
+.pageLayout {
+  display: flex;
+  gap: var(--space-8);
+  align-items: flex-start;
 }
 
-/* ── Header ── */
-.header {
-    padding: var(--spacing-md);
+/* ── Sidebar (desktop only) ── */
+.sidebar {
+  display: none;
 }
 
-.logo {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+@media (min-width: 1024px) {
+  .sidebar {
+    display: block;
+    flex-shrink: 0;
+    width: 200px;
+    position: sticky;
+    top: calc(var(--topbar-h) + var(--space-6));
+  }
 }
 
-/* ── Main ── */
-.main {
-    flex: 1;
-    padding: var(--spacing-md);
-    padding-bottom: calc(var(--spacing-md) + 24px);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
+.sidebarTitle {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--color-primary);
+  margin-bottom: var(--space-4);
+  letter-spacing: 0.06em;
 }
 
-.tittle {
-    font-family: 'Black Ops One';
-    font-size: 1.5rem;
-    color: var(--color-primary);
+/* ── Filter panel (shared between sidebar and mobile dropdown) ── */
+.filterPanel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
 }
 
-/* ══════════════════════════════════════════════
-   Barra de búsqueda
-══════════════════════════════════════════════ */
-.searchBar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.filterGroup {}
+
+.filterGroupTitle {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-dim);
+  margin-bottom: var(--space-2);
+}
+
+.filterList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.filterItem {
+  width: 100%;
+  text-align: left;
+  padding: var(--space-2) var(--space-3);
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+
+.filterItem:hover {
+  background: rgba(255,255,255,0.05);
+  color: var(--color-text);
+}
+
+.filterItemActive {
+  background: var(--color-primary-dim) !important;
+  color: var(--color-primary) !important;
+  font-weight: 600;
+}
+
+/* ── Content column ── */
+.content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.pageTitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: var(--color-primary);
+}
+
+/* ── Search row ── */
+.searchRow {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
 }
 
 .inputWrap {
-    flex: 1;
-    position: relative;
-    display: flex;
-    align-items: center;
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .searchIcon {
-    position: absolute;
-    left: 10px;
-    width: 16px;
-    height: 16px;
-    opacity: 0.5;
-    pointer-events: none;
+  position: absolute;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  opacity: 0.45;
+  pointer-events: none;
 }
 
 .input {
-    width: 100%;
-    background-color: var(--color-surface);
-    border: 1px solid transparent;
-    border-radius: 8px;
-    color: var(--color-text);
-    font-size: 0.9rem;
-    padding: 10px 36px 10px 34px;
-    outline: none;
-    transition: border-color 0.2s ease;
-    -webkit-appearance: none;
-    appearance: none;
+  width: 100%;
+  background: var(--color-surface);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  padding: 10px 36px 10px 38px;
+  outline: none;
+  transition: border-color var(--t-fast);
+  -webkit-appearance: none;
 }
 
-.input::placeholder {
-    color: var(--color-text-muted);
-}
-
-.input:focus {
-    border-color: var(--color-primary);
-}
+.input::placeholder { color: var(--color-text-muted); }
+.input:focus        { border-color: var(--color-primary); }
 
 .clearBtn {
-    position: absolute;
-    right: 10px;
-    background: none;
-    border: none;
-    color: var(--color-text-muted);
-    font-size: 12px;
-    cursor: pointer;
-    padding: 0;
-    line-height: 1;
-    transition: color 0.2s ease;
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 4px;
+  transition: color var(--t-fast);
 }
+.clearBtn:hover { color: var(--color-text); }
 
-.clearBtn:hover {
-    color: var(--color-text);
-}
-
-/* ══════════════════════════════════════════════
-   Botón Filtrar + Dropdown
-══════════════════════════════════════════════ */
+/* ── Mobile filter toggle (hidden on desktop where sidebar exists) ── */
 .filterWrap {
-    position: relative;
-    flex-shrink: 0;
+  position: relative;
+  flex-shrink: 0;
 }
 
-.filterBtn {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    background-color: var(--color-primary);
-    border: 1px solid transparent;
-    border-radius: 8px;
-    color: #000;
-    font-size: 0.85rem;
-    padding: 10px 12px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-    position: relative;
+.filterToggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 10px 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  position: relative;
+  transition: border-color var(--t-fast), color var(--t-fast);
 }
 
-.filterBtn:hover {
-    background-color: #2ecc71;
-}
-
-.filterBtnActive {
-    background-color: #27ae60;
-    border-color: var(--color-primary);
-}
-
-.filterIcon {
-    font-size: 11px;
-}
+.filterToggle:hover      { border-color: var(--color-primary); color: var(--color-text); }
+.filterToggleActive      { border-color: var(--color-primary); color: var(--color-primary); }
 
 .filterDot {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--color-primary);
+  position: absolute;
+  top: 5px; right: 5px;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
 }
 
-/* Dropdown */
-.dropdown {
-    position: absolute;
-    top: calc(100% + 6px);
-    right: 0;
-    width: 200px;
-    background-color: var(--color-surface);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    z-index: 50;
-    overflow: hidden;
-    animation: dropIn 0.15s ease;
+/* Mobile dropdown */
+.filterDropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 220px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  box-shadow: var(--shadow-card);
+  z-index: 50;
+  max-height: 60vh;
+  overflow-y: auto;
 }
 
-@keyframes dropIn {
-    from { opacity: 0; transform: translateY(-6px); }
-    to   { opacity: 1; transform: translateY(0); }
+/* Hide filter toggle on desktop (sidebar handles filters) */
+@media (min-width: 1024px) {
+  .filterWrap { display: none; }
 }
 
-/* Tabs del dropdown */
-.dropTabs {
-    display: flex;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.dropTab {
-    flex: 1;
-    padding: 10px 8px;
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    color: var(--color-text-muted);
-    font-size: 0.8rem;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: center;
-    margin-bottom: -1px;
-    transition: color 0.2s ease;
-}
-
-.dropTab:hover {
-    color: var(--color-text);
-}
-
-.dropTabActive {
-    color: var(--color-primary);
-    border-bottom-color: var(--color-primary);
-}
-
-/* Lista de items */
-.dropList {
-    max-height: 240px;
-    overflow-y: auto;
-    padding: 6px 0;
-    list-style: none;
-    margin: 0;
-}
-
-.dropList::-webkit-scrollbar       { width: 3px; }
-.dropList::-webkit-scrollbar-track { background: transparent; }
-.dropList::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
-
-.dropItem {
-    width: 100%;
-    text-align: left;
-    padding: 8px 16px;
-    background: none;
-    border: none;
-    color: var(--color-text-muted);
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: background-color 0.15s ease, color 0.15s ease;
-}
-
-.dropItem:hover {
-    background-color: rgba(255, 255, 255, 0.04);
-    color: var(--color-text);
-}
-
-.dropItemActive {
-    color: var(--color-primary);
-    font-weight: 600;
-}
-
-/* ══════════════════════════════════════════════
-   Chips de filtros activos
-══════════════════════════════════════════════ */
+/* ── Chips ── */
 .chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
 }
 
 .chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background-color: var(--color-primary);
-    color: #000;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 999px;
-    padding: 4px 10px;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: var(--color-primary-dim);
+  border: 1px solid rgba(57,255,20,0.3);
+  border-radius: 999px;
+  color: var(--color-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: opacity var(--t-fast);
 }
+.chip:hover { opacity: 0.75; }
 
-.chip:hover {
-    opacity: 0.85;
-}
-
-/* ══════════════════════════════════════════════
-   Contador de resultados
-══════════════════════════════════════════════ */
+/* ── Result count ── */
 .resultCount {
-    font-size: 0.75rem;
-    color: var(--color-text-muted);
-    margin: 0;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
 }
 
-/* ══════════════════════════════════════════════
-   Estados: loading / error / vacío
-══════════════════════════════════════════════ */
+/* ── States ── */
 .stateBox {
-    background-color: var(--color-surface);
-    border-radius: 12px;
-    padding: var(--spacing-md);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    text-align: center;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
 }
 
-.stateText {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    margin: 0;
+.spinner {
+  width: 32px; height: 32px;
+  border: 3px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
 }
 
-.errorText {
-    font-size: 0.9rem;
-    color: #e5534b;
-    margin: 0;
-}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.stateText  { color: var(--color-text-muted); font-size: 0.9rem; }
+.errorText  { color: var(--color-danger); font-size: 0.9rem; }
 
 .retryBtn {
-    background: none;
-    border: 1px solid var(--color-primary);
-    border-radius: 8px;
-    color: var(--color-primary);
-    font-size: 0.85rem;
-    padding: 8px 20px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+  padding: var(--space-2) var(--space-5);
+  background: none;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background var(--t-fast);
+}
+.retryBtn:hover { background: var(--color-primary-dim); }
+
+/* ── Results grid ──
+   Mobile: 1 col
+   Tablet: 2 cols
+   Desktop: 3 cols
+   Wide:    4 cols
+── */
+.resultsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
 }
 
-.retryBtn:hover {
-    background-color: rgba(126, 211, 33, 0.1);
+@media (min-width: 480px) {
+  .resultsGrid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ══════════════════════════════════════════════
-   Lista de resultados
-══════════════════════════════════════════════ */
-.resultList {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+@media (min-width: 1024px) {
+  .resultsGrid { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Tarjeta de juego */
-.gameCard {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background-color: var(--color-surface);
-    border-radius: 12px;
-    overflow: hidden;
-    transition: opacity 0.2s ease;
-    cursor: pointer;
-    padding-right: var(--spacing-md);
+@media (min-width: 1280px) {
+  .resultsGrid { grid-template-columns: repeat(4, 1fr); }
 }
 
-.gameCard:hover {
-    opacity: 0.85;
-}
-
-.cardThumb {
-    flex-shrink: 0;
-    width: 110px;
-    height: 68px;
-    object-fit: cover;
-}
-
-.cardInfo {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.cardTitle {
-    font-size: 0.9rem;
-    color: var(--color-text);
-    font-weight: 600;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.cardGenre {
-    font-size: 0.75rem;
-    color: var(--color-primary);
-    font-weight: 500;
-    margin: 0;
-}
-
-.cardPub {
-    font-size: 0.7rem;
-    color: var(--color-text-muted);
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* ══════════════════════════════════════════════
-   Paginación
-══════════════════════════════════════════════ */
+/* ── Pagination ── */
 .pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  flex-wrap: wrap;
 }
 
 .pageBtn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 34px;
-    height: 34px;
-    padding: 0 6px;
-    background-color: var(--color-surface);
-    border: 1px solid transparent;
-    border-radius: 8px;
-    color: var(--color-text-muted);
-    font-size: 0.875rem;
-    cursor: pointer;
-    transition: color 0.2s ease, border-color 0.2s ease;
+  min-width: 36px; height: 36px;
+  padding: 0 var(--space-2);
+  background: var(--color-surface);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all var(--t-fast);
 }
 
 .pageBtn:hover:not(:disabled) {
-    color: var(--color-text);
-    border-color: rgba(255, 255, 255, 0.1);
+  border-color: var(--color-border);
+  color: var(--color-text);
 }
 
-.pageBtn:disabled {
-    opacity: 0.25;
-    cursor: not-allowed;
-}
+.pageBtn:disabled { opacity: 0.25; cursor: not-allowed; }
 
 .pageBtnActive {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: #000;
-    font-weight: 700;
-}
-
-.pageBtnActive:hover {
-    color: #000 !important;
+  background: var(--color-primary);
+  color: #000;
+  font-weight: 700;
+  border-color: var(--color-primary);
 }
 
 .pageEllipsis {
-    color: var(--color-text-muted);
-    padding: 0 2px;
-    font-size: 0.875rem;
-    user-select: none;
+  color: var(--color-text-muted);
+  padding: 0 var(--space-1);
+  user-select: none;
 }

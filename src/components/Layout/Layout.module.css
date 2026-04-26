@@ -1,0 +1,40 @@
+.root {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Main content area ── */
+.main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--content-pad);
+
+  /* Mobile: space for bottom nav */
+  padding-bottom: calc(var(--navbar-h) + var(--content-pad));
+}
+
+/* ── Desktop: space for top nav ── */
+@media (min-width: 1024px) {
+  .main {
+    padding-top: calc(var(--topbar-h) + var(--content-pad));
+    /* navbar-h is 0px on desktop per variables.css */
+    padding-bottom: var(--content-pad);
+  }
+}
+
+/* ── Full-width variant (hero layouts) ── */
+.fullWidth {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (min-width: 1024px) {
+  .fullWidth {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

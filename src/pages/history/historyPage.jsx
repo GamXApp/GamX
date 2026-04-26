@@ -1,49 +1,60 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getHistory } from '../../services/storage';
-import Navbar from '../../components/navBar/navBar';
-import logo from '../../assets/images/logo.png';
-import styles from './historyPage.module.css';
+import { useState, useEffect } from 'react'
+import { getHistory, saveHistory } from '../../services/storage'
+import Layout from '../../components/Layout/Layout'
+import GameCard from '../../components/GameCard/GameCard'
+import styles from './historyPage.module.css'
 
-function HistoryPage() {
-  const [history, setHistory] = useState([]);
-  const navigate = useNavigate();
+export default function HistoryPage() {
+  const [history,      setHistory]      = useState([])
+  const [confirmClear, setConfirmClear] = useState(false)
 
-  useEffect(() => {
-    const fetchHistory = async () => {
-      const data = await getHistory();
-      setHistory(data);
-    };
+  useEffect(() => { setHistory(getHistory()) }, [])
 
-    fetchHistory();
-  }, []);
+  function removeGame(id) {
+    const updated = history.filter(g => g.id !== id)
+    saveHistory(updated)
+    setHistory(updated)
+  }
+
+  function clearAll() {
+    if (!confirmClear) {
+      setConfirmClear(true)
+      setTimeout(() => setConfirmClear(false), 3000)
+      return
+    }
+    saveHistory([]); setHistory([]); setConfirmClear(false)
+  }
 
   return (
-    <div className={styles.page}>
-      <Navbar />
-      <header className={styles.header}>
-        <img src={logo} alt="GamX" className={styles.logo} />
-      </header>
-      <main className={styles.main}>
-        <h1 className={styles.tittle}>Historial</h1>
-        {history.length === 0 ? (
+    <Layout>
+      <div className={styles.titleRow}>
+        <h1 className={styles.title}>Historial</h1>
+        {history.length > 0 && (
+          <button
+            className={`${styles.clearBtn} ${confirmClear ? styles.clearBtnConfirm : ''}`}
+            onClick={clearAll}
+          >
+            {confirmClear ? '¿Confirmar?' : 'Limpiar todo'}
+          </button>
+        )}
+      </div>
+
+      {history.length === 0 ? (
+        <div className={styles.empty}>
+          <span className={styles.emptyIcon}>🕹️</span>
           <p>No has visto ningún juego aún.</p>
-        ) : (
-          <div className={styles.resultList}>
+        </div>
+      ) : (
+        <>
+          <p className={styles.count}>{history.length} {history.length === 1 ? 'juego' : 'juegos'}</p>
+          {/* Mobile: 2-col grid | Desktop: 4-col grid */}
+          <div className={styles.grid}>
             {history.map(game => (
-              <div key={game.id} className={styles.gameCard} onClick={() => navigate(`/game/${game.id}`)}>
-                <img className={styles.cardThumb} src={game.thumbnail} alt={game.title} loading="lazy" />
-                <div className={styles.cardInfo}>
-                  <p className={styles.cardTitle}>{game.title}</p>
-                  <p className={styles.cardGenre}>{game.genre}</p>
-                </div>
-              </div>
+              <GameCard key={game.id} game={game} onRemove={removeGame} />
             ))}
           </div>
-        )}
-      </main>
-    </div>
-  );
+        </>
+      )}
+    </Layout>
+  )
 }
-
-export default HistoryPage;

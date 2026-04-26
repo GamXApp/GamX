@@ -1,179 +1,104 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getAllGames } from '../../services/api';
-import styles from './homePage.module.css';
-import Navbar from '../../components/navBar/navBar';
-import logo from '../../assets/images/logo.png';
-import homeImage from '../../assets/images/PcGamer.jpg';
-import imageAction from '../../assets/images/imageAction.jpeg';
-import imageActionRpg from '../../assets/images/imageActionRpg.jpeg';
-import imageAdventure from '../../assets/images/imageAdventure.jpg';
-import imageBattleRoyale from '../../assets/images/imageBattleRoyale.jpg';
-import imageCard from '../../assets/images/imageCard.webp';
-import imageMultiplayer from '../../assets/images/imageMMORP.jpg';
-import imageMOBA from '../../assets/images/imageMOBA.jpg';
-import imageRacing from '../../assets/images/imageRacing.jpg';
-import imageShooter from '../../assets/images/imageShooter.jpg';
-import imageStrategy from '../../assets/images/imageStrategy.jpg';
-import imageTerror from '../../assets/images/imageTerror.jpg';
-import imageMMORPG from '../../assets/images/imageMMORPG.jpg';
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { getAllGames } from '../../services/api'
+import Layout from '../../components/Layout/Layout'
+import GameCard from '../../components/GameCard/GameCard'
+import styles from './homePage.module.css'
 
-const categories = [
-    {
-        name: 'Acción',
-        image: imageAction,
-    },
-    {
-        name: 'RPG',
-        image: imageActionRpg,
-    },
-    {
-        name: 'Battle Royale',
-        image: imageBattleRoyale,
-    },
-    {
-        name: 'Aventura',
-        image: imageAdventure,
-    },
-    {
-        name: 'Estrategia',
-        image: imageStrategy,
-    },
-    {
-        name: 'Terror',
-        image: imageTerror,
-    },
-    {
-        name: 'Multijugador',
-        image: imageMultiplayer,
-    },
-    {
-        name: 'Carreras',
-        image: imageRacing,
-    },
-    {
-        name: 'Arcade',
-        image: imageCard,
-    },
-    {
-        name: 'MMORPG',
-        image: imageMMORPG,
-    },
-    {
-        name: 'Shooter',
-        image: imageShooter,
-    },
-    {
-        name: 'MOBA',
-        image: imageMOBA,
-    },
-    ];
+import homeImage        from '../../assets/images/PcGamer.jpg'
+import imageAction      from '../../assets/images/imageAction.jpeg'
+import imageActionRpg   from '../../assets/images/imageActionRpg.jpeg'
+import imageAdventure   from '../../assets/images/imageAdventure.jpg'
+import imageBattleRoyale from '../../assets/images/imageBattleRoyale.jpg'
+import imageCard        from '../../assets/images/imageCard.webp'
+import imageMultiplayer from '../../assets/images/imageMMORP.jpg'
+import imageMOBA        from '../../assets/images/imageMOBA.jpg'
+import imageRacing      from '../../assets/images/imageRacing.jpg'
+import imageShooter     from '../../assets/images/imageShooter.jpg'
+import imageStrategy    from '../../assets/images/imageStrategy.jpg'
+import imageTerror      from '../../assets/images/imageTerror.jpg'
+import imageMMORPG      from '../../assets/images/imageMMORPG.jpg'
 
-function HomePage( onNavigate ) {
-    const navigate = useNavigate();
-    const [games, setGames] = useState([])
+const CATEGORIES = [
+  { name: 'Acción',        image: imageAction       },
+  { name: 'RPG',           image: imageActionRpg    },
+  { name: 'Battle Royale', image: imageBattleRoyale },
+  { name: 'Aventura',      image: imageAdventure    },
+  { name: 'Estrategia',    image: imageStrategy     },
+  { name: 'Terror',        image: imageTerror       },
+  { name: 'Multijugador',  image: imageMultiplayer  },
+  { name: 'Carreras',      image: imageRacing       },
+  { name: 'Arcade',        image: imageCard         },
+  { name: 'MMORPG',        image: imageMMORPG       },
+  { name: 'Shooter',       image: imageShooter      },
+  { name: 'MOBA',          image: imageMOBA         },
+]
 
-    // Cambio: esta funcion va dentro del componente porque necesita usar "navigate",
-    // que se crea con useNavigate() dentro de HomePage.
-    function goToCategory(categoryName){
-        navigate(`/search?category=${encodeURIComponent(categoryName)}`)
-    }
+export default function HomePage() {
+  const navigate = useNavigate()
+  const [games, setGames] = useState([])
 
-    useEffect(() => {
-        async function loadGames(){
-            try{
-                const data = await getAllGames()
-            
-                const randomGames = data
-                    .sort(() => Math.random() - 0.5)
-                    .slice(0, 10)
+  useEffect(() => {
+    getAllGames()
+      .then(data => setGames(data.sort(() => Math.random() - 0.5).slice(0, 12)))
+      .catch(console.error)
+  }, [])
 
-                setGames(randomGames)
-            } catch (error) {
-                console.error('Error al cargar juegos', error)
-            }
-        }
+  function goToCategory(name) {
+    navigate(`/search?category=${encodeURIComponent(name)}`)
+  }
 
-        loadGames()
-    }, [])
-
-    return(
-        <div className={styles.homePageWrapper}>
-            {/* Header con el logo*/}
-            <header className={styles.header}>
-                <img
-                className={styles.logo} 
-                src={logo} alt="logo" />
-            </header>
-
-            {/* Contenido principal */}
-            <div className={styles.main}>
-                <div className={styles.heroSection}>
-                    <img className={styles.heroImage} src={homeImage} alt="Imagen de fondo"/>
-                    <div className={styles.Text}>
-                        <h1 className={styles.title}>GamX</h1>
-                        <p className={styles.description}>
-                            Bienvenido a GamX, la mejor plataforma para los amantes de los videojuegos. Explora e investiga sobre los mejores videojuegos free to play.
-                        </p>
-                    </div>
-                </div>
-
-                <div className={styles.gamesWrapper}>
-                    <h2 className={styles.discover}>Descubre</h2>
-                    <section className={styles.gamesSection}>
-                        {
-                            games.map(
-                                game => (
-                                    <div 
-                                    key={game.id} 
-                                    className={styles.gameCard}
-                                    onClick={() => navigate(`/game/${game.id}`)}>
-                                        <img className={styles.gameImage} src={game.thumbnail} alt={game.title} loading="lazy" />
-                                        <div className={styles.gameInfo}>
-                                            <p className={styles.gameTitle}>
-                                                {game.title}
-                                            </p>
-                                            <p className={styles.gameGenre}>
-                                                {game.genre}
-                                            </p>
-                                        </div>
-                                    </div>
-                                )
-                            )
-                        }
-                    </section>
-                </div> 
-
-                <section className={styles.categoriesSection}>
-                    <h2 className={styles.discover}>Categorías</h2>
-
-                    <div className={styles.categoryGrid}>
-                        {categories.map(category => (
-                            <button 
-                                key={category.name}
-                                className={styles.categoryCard}
-                                // Cambio: mandamos solo el nombre de la categoria.
-                                // Antes se mandaba el objeto completo y la URL quedaba mal.
-                                onClick={() => goToCategory(category.name)}
-                            > 
-                                <img 
-                                className={styles.categoryImage}
-                                src={category.image} alt={category.name} />
-
-                                <span className={styles.categoryName}>
-                                    {category.name}
-                                </span>
-                            </button>
-                            ))
-
-                        }
-                    </div>
-                </section>
-            </div>
-
-            <Navbar currentPage="home" onNavigate={onNavigate} />
+  return (
+    <Layout fullWidth>
+      {/* ── Hero ── */}
+      <section className={styles.hero}>
+        <img src={homeImage} alt="" className={styles.heroBg} aria-hidden="true" />
+        <div className={styles.heroOverlay} />
+        <div className={styles.heroContent}>
+          <h1 className={styles.heroTitle}>GamX</h1>
+          <p className={styles.heroSub}>
+            Explorá los mejores videojuegos free-to-play del mundo
+          </p>
+          <button
+            className={styles.heroCta}
+            onClick={() => navigate('/search')}
+          >
+            Explorar juegos
+          </button>
         </div>
-    )
-}
+      </section>
 
-export default HomePage;
+      {/* ── Page content inside max-width container ── */}
+      <div className={styles.container}>
+
+        {/* ── Discover section ── */}
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Descubrí</h2>
+          {/* Mobile: horizontal scroll strip | Desktop: responsive grid */}
+          <div className={styles.discoverGrid}>
+            {games.map(game => (
+              <GameCard key={game.id} game={game} />
+            ))}
+          </div>
+        </section>
+
+        {/* ── Categories ── */}
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>Categorías</h2>
+          <div className={styles.categoryGrid}>
+            {CATEGORIES.map(cat => (
+              <button
+                key={cat.name}
+                className={styles.categoryCard}
+                onClick={() => goToCategory(cat.name)}
+              >
+                <img src={cat.image} alt={cat.name} className={styles.categoryImg} />
+                <span className={styles.categoryName}>{cat.name}</span>
+              </button>
+            ))}
+          </div>
+        </section>
+      </div>
+    </Layout>
+  )
+}
