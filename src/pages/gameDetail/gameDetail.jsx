@@ -2,24 +2,13 @@ import { useEffect, useState, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getGameById } from '../../services/api'
 import { addToHistory, isInWishlist, addToWishlist, removeFromWishlist } from '../../services/storage'
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 import Layout from '../../components/Layout/Layout'
 import WishlistModal from '../../components/WishlistModal/WishlistModal'
 import styles from './GameDetail.module.css'
 
 function Spinner() {
   return <div className={styles.spinner} aria-label="Cargando…" />
-}
-
-function ErrorState({ message, onRetry, onBack }) {
-  return (
-    <div className={styles.errorState}>
-      <p className={styles.errorText}>{message}</p>
-      <div className={styles.errorActions}>
-        <button className={styles.backBtn} onClick={onBack}>← Volver</button>
-        <button className={styles.retryBtn} onClick={onRetry}>Reintentar</button>
-      </div>
-    </div>
-  )
 }
 
 export default function GameDetail() {
@@ -37,8 +26,14 @@ export default function GameDetail() {
     setLoading(true); setError(null)
     try {
       const data = await getGameById(id)
+
+      if (!data || data.status === 0) {
+        throw new Error('No pudimos cargar la información del juego.')
+      }
+
       setGame(data)
       setInWish(isInWishlist(data.id))
+      
       addToHistory({
         id:        data.id,
         title:     data.title,
@@ -81,7 +76,7 @@ export default function GameDetail() {
   if (error) {
     return (
       <Layout>
-        <ErrorState message={error} onRetry={load} onBack={() => navigate(-1)} />
+        <ErrorMessage message={error} onRetry={load} />
       </Layout>
     )
   }
@@ -104,7 +99,7 @@ export default function GameDetail() {
       {/* ── Hero image ── */}
       <div className={styles.hero}>
         <img
-          src={shots[activeShot]?.image || game.thumbnail}
+          src={game.thumbnail}
           alt={game.title}
           className={styles.heroImg}
         />

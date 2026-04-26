@@ -10,7 +10,7 @@ import PWAPrompts   from './components/PWAPrompts/PWAPrompts'
 export default function App() {
   return (
     <BrowserRouter>
-      {/* PWA install banner + update toast — rendered outside routes */}
+      
       <PWAPrompts />
 
       <Routes>

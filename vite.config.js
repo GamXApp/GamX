@@ -4,20 +4,20 @@ import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
   plugins: [
-    react(), // sin presets ni babel extra
+    react(),
 
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: [
-        'favicon.ico',
+        'favicon.svg',
         'apple-touch-icon.png',
         'icons/*.png',
         'icons/*.svg',
       ],
       manifest: {
-        name: 'GamX — Free to Play Games',
+        name: 'GamX - Free to Play Games',
         short_name: 'GamX',
-        description: 'Explorá los mejores videojuegos free-to-play del mundo',
+        description: 'Explora los mejores videojuegos free-to-play del mundo',
         theme_color: '#0d0d14',
         background_color: '#0d0d14',
         display: 'standalone',
@@ -34,7 +34,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,webp,jpeg,jpg,svg,woff2}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,webp,svg,woff2}'],
         runtimeCaching: [
           {
             urlPattern: /\/api\/games/,

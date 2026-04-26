@@ -1,51 +1,40 @@
+import { useState } from 'react'
 import { usePWA } from '../../hooks/usePWA'
 import styles from './PWAPrompts.module.css'
 
-/**
- * PWAPrompts renders two non-blocking UI elements:
- *  1. Install banner  — appears at the bottom when the browser fires
- *                       beforeinstallprompt (Android Chrome / Edge / Samsung)
- *  2. Update toast    — appears at the top when a new SW version is waiting
- *
- * Drop this component once inside <App /> (outside the Router is fine too).
- */
 export default function PWAPrompts() {
   const { canInstall, install, needsUpdate, updateApp } = usePWA()
+  const [showInstall, setShowInstall] = useState(true)
+  const [showUpdate, setShowUpdate] = useState(true)
 
   return (
     <>
-      {/* ── Update toast ── */}
-      {needsUpdate && (
+      {needsUpdate && showUpdate && (
         <div className={styles.updateToast} role="alert">
-          <span>🚀 Nueva versión disponible</span>
+          <span>Nueva version disponible</span>
           <button className={styles.updateBtn} onClick={updateApp}>
             Actualizar
           </button>
-          <button className={styles.dismissBtn} onClick={() => {}}>✕</button>
+          <button className={styles.dismissBtn} onClick={() => setShowUpdate(false)}>
+            x
+          </button>
         </div>
       )}
 
-      {/* ── Install banner ── */}
-      {canInstall && (
+      {canInstall && showInstall && (
         <div className={styles.installBanner} role="complementary" aria-label="Instalar GamX">
           <div className={styles.installInfo}>
-            <span className={styles.installIcon}>🎮</span>
+            <span className={styles.installIcon}>GX</span>
             <div>
-              <p className={styles.installTitle}>Instalá GamX</p>
-              <p className={styles.installSub}>Accedé sin internet, más rápido</p>
+              <p className={styles.installTitle}>Instala GamX</p>
+              <p className={styles.installSub}>Accede sin internet, mas rapido</p>
             </div>
           </div>
           <div className={styles.installActions}>
             <button className={styles.installBtn} onClick={install}>
               Instalar
             </button>
-            <button
-              className={styles.installDismiss}
-              onClick={() => {
-                /* The hook state won't reset on dismiss — user just hides it */
-                document.querySelector('[role="complementary"]')?.remove()
-              }}
-            >
+            <button className={styles.installDismiss} onClick={() => setShowInstall(false)}>
               Ahora no
             </button>
           </div>
