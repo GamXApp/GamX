@@ -5,7 +5,6 @@
   margin-bottom: var(--space-6);
 }
 
-/* ── Grid: stacked mobile, side-by-side desktop ── */
 .grid {
   display: flex;
   flex-direction: column;
@@ -20,7 +19,6 @@
   }
 }
 
-/* ── Info card ── */
 .card {
   background: var(--color-surface);
   border-radius: var(--radius-lg);
@@ -44,7 +42,6 @@
   color: var(--color-text);
 }
 
-/* ── Contact items ── */
 .contactList {
   display: flex;
   flex-direction: column;
@@ -92,7 +89,6 @@
 
 a.contactValue:hover { opacity: 0.75; }
 
-/* ── Map ── */
 .mapWrap {
   flex: 1;
   border-radius: var(--radius-lg);

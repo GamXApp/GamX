@@ -7,13 +7,6 @@ const BREAKPOINTS = {
   xl:  1280,
 }
 
-/**
- * Returns the current breakpoint key: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
- * and convenience booleans.
- *
- * Usage:
- *   const { isMobile, isTablet, isDesktop } = useBreakpoint()
- */
 export function useBreakpoint() {
   const getBreakpoint = () => {
     const w = window.innerWidth

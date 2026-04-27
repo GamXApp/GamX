@@ -1,4 +1,3 @@
-/* ── Update toast (top of screen) ── */
 .updateToast {
   position: fixed;
   top: var(--space-4);
@@ -52,7 +51,6 @@
 
 .dismissBtn:hover { color: var(--color-text); }
 
-/* ── Install banner (bottom of screen, above navbar on mobile) ── */
 .installBanner {
   position: fixed;
   bottom: calc(var(--navbar-h) + var(--space-3));
@@ -78,7 +76,6 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* On desktop: position above bottom, centered */
 @media (min-width: 1024px) {
   .installBanner {
     bottom: var(--space-6);

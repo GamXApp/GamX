@@ -1,4 +1,3 @@
-/* ── Base card ── */
 .card {
   position: relative;
   background: var(--color-surface);
@@ -15,7 +14,6 @@
   box-shadow: var(--shadow-card);
 }
 
-/* ── Thumbnail wrapper ── */
 .thumbWrap {
   position: relative;
   width: 100%;
@@ -41,7 +39,6 @@
   pointer-events: none;
 }
 
-/* ── Genre badge (grid mode) ── */
 .genre {
   position: absolute;
   bottom: var(--space-2);
@@ -58,7 +55,6 @@
   pointer-events: none;
 }
 
-/* ── Remove button ── */
 .removeBtn {
   position: absolute;
   top: 6px;
@@ -101,7 +97,6 @@
 
 .removeBtn:hover { background: var(--color-danger); }
 
-/* ── Info section ── */
 .info {
   padding: var(--space-2) var(--space-3) var(--space-3);
   display: flex;
@@ -118,9 +113,6 @@
   text-overflow: ellipsis;
 }
 
-/* ═══════════════════════════════════════
-   Compact (list row) variant
-═══════════════════════════════════════ */
 .compact {
   display: flex;
   flex-direction: row;
@@ -160,7 +152,6 @@
   text-overflow: ellipsis;
 }
 
-/* ── Compact remove button always visible on touch ── */
 @media (hover: none) {
   .removeBtn {
     opacity: 1;

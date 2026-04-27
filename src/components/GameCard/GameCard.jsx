@@ -1,13 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import styles from './GameCard.module.css'
 
-/**
- * Reusable game card.
- * Props:
- *   game       – game object {id, title, thumbnail, genre, publisher}
- *   onRemove   – optional fn(id) — shows remove (×) button when provided
- *   size       – 'default' | 'compact'  (compact = list row style)
- */
 export default function GameCard({ game, onRemove, size = 'default' }) {
   const navigate = useNavigate()
 
@@ -24,7 +17,7 @@ export default function GameCard({ game, onRemove, size = 'default' }) {
       onKeyDown={e => e.key === 'Enter' && navigate(`/game/${game.id}`)}
       aria-label={`Ver detalles de ${game.title}`}
     >
-      {/* Thumbnail */}
+
       <div className={styles.thumbWrap}>
         <img
           src={game.thumbnail}
@@ -34,7 +27,6 @@ export default function GameCard({ game, onRemove, size = 'default' }) {
         />
         <div className={styles.thumbOverlay} />
 
-        {/* Remove button */}
         {onRemove && (
           <button
             className={styles.removeBtn}
@@ -45,13 +37,11 @@ export default function GameCard({ game, onRemove, size = 'default' }) {
           </button>
         )}
 
-        {/* Genre badge */}
         {size !== 'compact' && (
           <span className={styles.genre}>{game.genre}</span>
         )}
       </div>
 
-      {/* Info */}
       <div className={styles.info}>
         <p className={styles.title}>{game.title}</p>
         {size === 'compact' && (

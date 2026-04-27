@@ -31,7 +31,6 @@ export default function ContactPage() {
       <h1 className={styles.title}>Contacto</h1>
 
       <div className={styles.grid}>
-        {/* ── Info card ── */}
         <section className={styles.card}>
           <h2 className={styles.cardTitle}>Información de Contacto</h2>
 
@@ -54,7 +53,6 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* ── Map ── */}
         <div className={styles.mapWrap}>
           <iframe
             className={styles.map}

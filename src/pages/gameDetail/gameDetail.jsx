@@ -61,7 +61,6 @@ export default function GameDetail() {
     setInWish(false)
   }
 
-  /* ── Loading ── */
   if (loading) {
     return (
       <Layout>
@@ -72,7 +71,6 @@ export default function GameDetail() {
     )
   }
 
-  /* ── Error ── */
   if (error) {
     return (
       <Layout>
@@ -96,7 +94,6 @@ export default function GameDetail() {
         />
       )}
 
-      {/* ── Hero image ── */}
       <div className={styles.hero}>
         <img
           src={game.thumbnail}
@@ -105,7 +102,6 @@ export default function GameDetail() {
         />
         <div className={styles.heroGrad} />
 
-        {/* Back button overlaid on hero */}
         <button
           className={styles.heroBack}
           onClick={() => navigate(-1)}
@@ -114,22 +110,18 @@ export default function GameDetail() {
           <span aria-hidden="true">&lt;</span>
         </button>
 
-        {/* Badges */}
         <div className={styles.heroBadges}>
           <span className={styles.genreBadge}>{game.genre}</span>
           {game.status && <span className={styles.statusBadge}>{game.status}</span>}
         </div>
       </div>
 
-      {/* ── Body ── */}
       <div className={styles.bodyWrap}>
         <div className={styles.body}>
 
-          {/* ── Left column (main info) ── */}
           <div className={styles.mainCol}>
             <h1 className={styles.title}>{game.title}</h1>
 
-            {/* Meta row */}
             <div className={styles.metaRow}>
               {[
                 { l: 'Plataforma',   v: game.platform === 'PC (Windows)' ? 'PC' : game.platform },
@@ -143,7 +135,6 @@ export default function GameDetail() {
               ))}
             </div>
 
-            {/* Actions */}
             <div className={styles.actions}>
               <button
                 className={`${styles.wishBtn} ${inWish ? styles.wishBtnAdded : ''}`}
@@ -164,7 +155,6 @@ export default function GameDetail() {
               )}
             </div>
 
-            {/* Description */}
             {game.description && (
               <section className={styles.section}>
                 <h2 className={styles.secLabel}>Descripción</h2>
@@ -172,7 +162,6 @@ export default function GameDetail() {
               </section>
             )}
 
-            {/* Screenshots */}
             {shots.length > 0 && (
               <section className={styles.section}>
                 <h2 className={styles.secLabel}>Screenshots</h2>
@@ -200,7 +189,6 @@ export default function GameDetail() {
             )}
           </div>
 
-          {/* ── Right column (system requirements — desktop sidebar) ── */}
           {sys && (
             <aside className={styles.sideCol}>
               <section className={styles.section}>

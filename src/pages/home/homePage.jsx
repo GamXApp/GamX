@@ -50,7 +50,6 @@ export default function HomePage() {
 
   return (
     <Layout fullWidth>
-      {/* ── Hero ── */}
       <section className={styles.hero}>
         <img src={homeImage} alt="" className={styles.heroBg} aria-hidden="true" />
         <div className={styles.heroOverlay} />
@@ -68,13 +67,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Page content inside max-width container ── */}
       <div className={styles.container}>
 
-        {/* ── Discover section ── */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Descubrí</h2>
-          {/* Mobile: horizontal scroll strip | Desktop: responsive grid */}
           <div className={styles.discoverGrid}>
             {games.map(game => (
               <GameCard key={game.id} game={game} />
@@ -82,7 +78,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ── Categories ── */}
         <section className={styles.section}>
           <h2 className={styles.sectionTitle}>Categorías</h2>
           <div className={styles.categoryGrid}>

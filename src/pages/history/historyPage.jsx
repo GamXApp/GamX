@@ -47,7 +47,6 @@ export default function HistoryPage() {
       ) : (
         <>
           <p className={styles.count}>{history.length} {history.length === 1 ? 'juego' : 'juegos'}</p>
-          {/* Mobile: 2-col grid | Desktop: 4-col grid */}
           <div className={styles.grid}>
             {history.map(game => (
               <GameCard key={game.id} game={game} onRemove={removeGame} />

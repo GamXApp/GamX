@@ -15,10 +15,6 @@ const NAV_ITEMS = [
   { key: 'contact',  path: '/contact',  icon: phoneIcon,  label: 'Contacto' },
 ]
 
-/**
- * Mobile-only bottom navigation bar.
- * Hidden on desktop via CSS (display:none at lg breakpoint).
- */
 export default function NavBar() {
   const navigate  = useNavigate()
   const location  = useLocation()

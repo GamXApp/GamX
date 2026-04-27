@@ -16,10 +16,6 @@ const NAV_ITEMS = [
   { key: 'contact',  path: '/contact',  icon: phoneIcon,  label: 'Contacto' },
 ]
 
-/**
- * Desktop-only top navigation bar.
- * Hidden on mobile via CSS (display:none below lg breakpoint).
- */
 export default function TopBar() {
   const navigate  = useNavigate()
   const location  = useLocation()
@@ -31,7 +27,7 @@ export default function TopBar() {
   return (
     <header className={styles.topbar}>
       <div className={styles.inner}>
-        {/* Logo */}
+        
         <button
           className={styles.logoBtn}
           onClick={() => navigate('/')}
@@ -41,7 +37,6 @@ export default function TopBar() {
           <span className={styles.logoText}>GamX</span>
         </button>
 
-        {/* Nav links */}
         <nav className={styles.nav} aria-label="Navegación principal">
           {NAV_ITEMS.map(({ key, path, icon, label }) => {
             const active = currentKey === key

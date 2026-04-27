@@ -54,12 +54,6 @@
   color: var(--color-text-dim) !important;
 }
 
-/* ── Grid responsive ──
-   Mobile:  2 cols
-   Tablet:  3 cols
-   Desktop: 4 cols
-   Wide:    5 cols
-── */
 .grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

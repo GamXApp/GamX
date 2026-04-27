@@ -40,7 +40,6 @@ export default function SearchPage() {
 
   const filterRef = useRef(null)
 
-  /* Close mobile dropdown on outside click */
   useEffect(() => {
     function handler(e) {
       if (filterRef.current && !filterRef.current.contains(e.target))
@@ -85,7 +84,6 @@ export default function SearchPage() {
 
   function goToPage(p) { setPage(p); window.scrollTo({ top: 0, behavior: 'smooth' }) }
 
-  /* ── Filter panel (reused in sidebar + mobile dropdown) ── */
   const FilterPanel = () => (
     <div className={styles.filterPanel}>
       <div className={styles.filterGroup}>
@@ -121,17 +119,14 @@ export default function SearchPage() {
     <Layout>
       <div className={styles.pageLayout}>
 
-        {/* ── Desktop sidebar ── */}
         <aside className={styles.sidebar}>
           <h2 className={styles.sidebarTitle}>Filtros</h2>
           <FilterPanel />
         </aside>
 
-        {/* ── Main column ── */}
         <div className={styles.content}>
           <h1 className={styles.pageTitle}>Buscar</h1>
 
-          {/* Search bar */}
           <div className={styles.searchRow}>
             <div className={styles.inputWrap}>
               <img src={searchIcon} alt="" className={styles.searchIcon} aria-hidden="true" />
@@ -147,7 +142,6 @@ export default function SearchPage() {
               )}
             </div>
 
-            {/* Mobile filter toggle */}
             <div className={styles.filterWrap} ref={filterRef}>
               <button
                 className={`${styles.filterToggle} ${hasFilters ? styles.filterToggleActive : ''}`}
@@ -173,7 +167,6 @@ export default function SearchPage() {
             </div>
           </div>
 
-          {/* Active filter chips */}
           {hasFilters && (
             <div className={styles.chips}>
               {category !== 'Todos' && (
@@ -189,14 +182,12 @@ export default function SearchPage() {
             </div>
           )}
 
-          {/* Result count */}
           {!loading && !error && (
             <p className={styles.resultCount}>
               {filtered.length} {filtered.length === 1 ? 'resultado' : 'resultados'}
             </p>
           )}
 
-          {/* States */}
           {loading && (
             <div className={styles.stateBox}>
               <div className={styles.spinner} />
@@ -210,7 +201,6 @@ export default function SearchPage() {
             </div>
           )}
 
-          {/* Results grid */}
           {!loading && !error && (
             <>
               {paged.length === 0 ? (
@@ -225,7 +215,6 @@ export default function SearchPage() {
                 </div>
               )}
 
-              {/* Pagination */}
               {totalPages > 1 && (
                 <div className={styles.pagination}>
                   <button className={styles.pageBtn} onClick={() => goToPage(page - 1)} disabled={page === 1}>‹</button>

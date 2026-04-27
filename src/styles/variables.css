@@ -1,10 +1,4 @@
-/* ═══════════════════════════════════════════════
-   GamX Design Tokens
-   Mobile-first responsive CSS variables
-═══════════════════════════════════════════════ */
-
 :root {
-  /* ── Colors ── */
   --color-bg:           #0d0d14;
   --color-surface:      #16213e;
   --color-surface-2:    #1e2a4a;
@@ -16,11 +10,9 @@
   --color-text-muted:   #8a9ab5;
   --color-text-dim:     #4a5568;
 
-  /* ── Typography ── */
   --font-display: 'Black Ops One', cursive;
   --font-body:    'DM Sans', sans-serif;
 
-  /* ── Spacing scale ── */
   --space-1:  4px;
   --space-2:  8px;
   --space-3:  12px;
@@ -31,48 +23,35 @@
   --space-10: 40px;
   --space-12: 48px;
 
-  /* ── Layout ── */
   --max-width:       1280px;
   --sidebar-width:   240px;
-  --navbar-h:        64px;   /* mobile bottom nav height */
-  --topbar-h:        64px;   /* desktop top nav height */
+  --navbar-h:        64px;   
+  --topbar-h:        64px;   
   --content-pad:     var(--space-4);
 
-  /* ── Breakpoints (reference only — use in media queries) ──
-     sm:  480px
-     md:  768px   (tablet)
-     lg:  1024px  (desktop)
-     xl:  1280px
-  ── */
-
-  /* ── Radius ── */
   --radius-sm:  6px;
   --radius-md:  10px;
   --radius-lg:  16px;
   --radius-xl:  24px;
 
-  /* ── Shadows / Glows ── */
   --glow-sm:  0 0 12px rgba(57,255,20,0.25);
   --glow-md:  0 0 28px rgba(57,255,20,0.35);
   --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
 
-  /* ── Transitions ── */
   --t-fast:   0.15s ease;
   --t-base:   0.25s ease;
   --t-slow:   0.4s ease;
 }
 
-/* ── Tablet+ overrides ── */
 @media (min-width: 768px) {
   :root {
     --content-pad: var(--space-6);
   }
 }
 
-/* ── Desktop overrides ── */
 @media (min-width: 1024px) {
   :root {
     --content-pad: var(--space-8);
-    --navbar-h:    0px;   /* no bottom nav on desktop */
+    --navbar-h:    0px;   
   }
 }

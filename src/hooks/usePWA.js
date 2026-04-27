@@ -1,20 +1,11 @@
 import { useState, useEffect } from 'react'
 
-/**
- * usePWA — handles:
- *   1. Install prompt  (beforeinstallprompt)
- *   2. SW update available (via vite-plugin-pwa's virtual module)
- *
- * Usage:
- *   const { canInstall, install, needsUpdate, updateApp } = usePWA()
- */
 export function usePWA() {
   const [installPrompt, setInstallPrompt] = useState(null)
   const [canInstall,    setCanInstall]    = useState(false)
   const [needsUpdate,   setNeedsUpdate]   = useState(false)
   const [registration,  setRegistration]  = useState(null)
 
-  /* ── Capture install prompt ── */
   useEffect(() => {
     function handler(e) {
       e.preventDefault()
@@ -25,18 +16,8 @@ export function usePWA() {
     return () => window.removeEventListener('beforeinstallprompt', handler)
   }, [])
 
-  /* ── Detect SW update via vite-plugin-pwa virtual module ── */
   useEffect(() => {
-    if (import.meta.env.DEV) {
-      navigator.serviceWorker?.getRegistrations()
-        .then(registrations => {
-          registrations.forEach(registration => registration.unregister())
-        })
-      return
-    }
-
-    // Dynamic import so the build doesn't break if the virtual module
-    // isn't available (e.g. during unit tests).
+    
     import('virtual:pwa-register')
       .then(({ registerSW }) => {
         const updateSW = registerSW({
@@ -50,7 +31,7 @@ export function usePWA() {
         })
       })
       .catch(() => {
-        // Not in a PWA context — silently ignore
+        console.warn('[GamX PWA] No se pudo registrar el Service Worker')
       })
   }, [])
 
@@ -66,7 +47,7 @@ export function usePWA() {
 
   async function updateApp() {
     if (registration) {
-      await registration(true)   // force reload
+      await registration(true)   
     }
     setNeedsUpdate(false)
   }
