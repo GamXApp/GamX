@@ -176,6 +176,15 @@ export default function GameDetail() {
             {shots.length > 0 && (
               <section className={styles.section}>
                 <h2 className={styles.secLabel}>Screenshots</h2>
+
+                <div className={styles.screenPreview}>
+                  <img
+                    src={shots[activeShot]?.image}
+                    alt={`Screenshot ${activeShot + 1}`}
+                    className={styles.screenPreviewImg}
+                  />
+                </div>
+                
                 <div className={styles.shots}>
                   {shots.map((s, i) => (
                     <button
